@@ -1,0 +1,395 @@
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+  <link rel="stylesheet" href="__PUBLIC__/assets/css/400700.css">
+  <link rel="stylesheet" href="__PUBLIC__/assets/css/fonts/linecons/css/linecons.css">
+  <link rel="stylesheet" href="__PUBLIC__/assets/css/fonts/fontawesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="__PUBLIC__/assets/css/bootstrap.css">
+  <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-core.css">
+  <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-forms.css">
+  <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-components.css">
+  <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-skins.css">
+  <link rel="stylesheet" href="__PUBLIC__/assets/css/custom.css">
+
+  <script src="__PUBLIC__/assets/js/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+ <include file="Index/topbaruse" />
+ <div class="panel panel-default" style="padding: 50px;padding-top: 40px;">
+  <p style="margin-bottom: 10px;">当前位置：书面评审管理</p>
+  <div class="panel-heading">
+
+   <!--<h3 class="panel-title">Adjustable Responsive Table</h3>-->
+   <h3 class="panel-title">专家审核结果导入/ <a href="__PUBLIC__/EXCEL/sh2.xls" ><span style=" color:#090"><strong>点此处下载专家审核结果模板</strong></span></a></h3>
+ </div>
+
+ <div class="panel-body" style="height:30px; padding-left:200px;">
+  <form id="formpic" action="{:U('System/upload')}" enctype="multipart/form-data" method="post" >
+    <input type="file" name="photo" />
+    <button type="submit" class="btn btn-success"  >上传</button>
+    <a class="btn btn-white" href="{:U('System/daorush')}">提交</a>
+  </form>
+</div>
+</div>   
+
+<div class="panel-body" style="background: #ffffff;">
+
+  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2" >
+    <ul class="nav navbar-nav">
+      <li class="active">
+        <a href="#">关键词</a>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <b id="searchby">按身份证号查找</b><b class="caret"></b></a>
+          <ul class="dropdown-menu dropdown-primary">
+            <li><a name="lb" onclick="searchby(this)">按类别查找</a></li>
+            <li><a name="card" onclick="searchby(this)">按身份证号查找</a></li>
+            <li><a name="xm" onclick="searchby(this)">按姓名查找</a></li>
+          </ul>
+        </li>
+        <li>
+          <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+              <input id="searchuse" type="text" class="form-control" placeholder="如按类别搜索，请输入对应的数字123" value="" size="30" >
+            </div>
+          </form>
+        </li>
+
+        <b id="searchbyuse" style="display:none" >iname</b>
+        <li><a type="button" onclick="searchlink()" class="btn btn-gary">搜索</a></li>
+
+        <a class="btn btn-secondary btn-single " href="{:U('Managers/smdc')}" >导出全部信息</a>
+        <a class="btn btn-secondary btn-single " href="{:U('Managers/smdc?se=1')}" >导出书面通过学生信息</a>
+        <a class="btn btn-secondary btn-single " href="{:U('Managers/smdc?se=2')}" >导出书面未通过学生信息</a>
+      </ul>
+    </div> 
+    <script>
+
+      function checkAll(obj){
+        $("#ckbox input[type='checkbox']").prop('checked', $(obj).prop('checked'));
+      }
+
+      function hideshow(info){
+       codebasefuns(info);
+       setTimeout("codefans()",2000);
+
+     }
+     function codebasefuns(info){
+
+      var box=document.getElementById("toast-container");
+      var boxshowmy=document.getElementById("toast-show-my");
+      boxshowmy.innerHTML=info;
+      box.style.display="";
+    }
+    function codefans(){
+      var box=document.getElementById("toast-container");
+      box.style.display="none"; 
+    }
+    function reloadhtml(){
+      window.location.reload();
+    }
+
+
+    jQuery(document).ready(function($){
+      $(":input").change(function(){
+        var classuse = this.getAttribute("caozuo");
+        var usename = this.closest('tr').id;
+        var useval = $(this).val();
+        var stat = 0;
+        if(classuse == 'smpass'){
+          stat = 0;
+        }
+        urluse = '{:U('smtx')}';
+        $.ajax({
+          url:urluse,
+
+          method:'POST',
+          dataType:'json',
+          cache:false,
+          traditional:true,
+          data:{
+            name:usename,
+            stat:stat,
+            checked:useval,
+            do_xiugai:true,
+          },
+          success:function(resp){
+            if(resp.accessGranted){
+                                  // alert(resp['errors']);
+                                  // hideshow(resp['errors']);
+                                    // setTimeout("reloadhtml()",2000);
+                                  }
+                                },
+                                error:function(){
+                              // hideshow("WHT");
+                            }
+                          });
+
+      });
+
+      $("button#saveallbz").click(function(){
+
+        var text = [];
+        $('input:text').each(function(){
+
+          text.push($(this).val());
+
+        });
+
+      });
+
+      $("td a").click(function(){
+
+        var urluse = '{:U('clsh')}';
+        var usename = this.closest('tr').id;
+        var classuse = this.getAttribute("caozuo");
+        var stat = 0;
+        if(classuse == 'passone'){
+          stat = 7;
+        }else if(classuse == 'nopassone'){
+          stat = 2;
+        }else if(classuse == 'nopassoneall'){
+          stat = 6;
+        }else if(classuse == 'passoneall'){
+          stat = 5;
+        }else{
+          return;
+        }
+        if(stat == 5 || stat == 6){
+
+          var checked = [];
+          $('input:checkbox:checked').each(function(){
+            checked.push($(this).val());
+          });
+
+          urluse = '{:U('clshall')}';
+          $.ajax({
+            url:urluse,
+
+            method:'POST',
+            dataType:'json',
+            cache:false,
+            traditional:true,
+            data:{
+              stat:stat,
+              checked:checked.toString(),
+              do_xiugai:true,
+            },
+            success:function(resp){
+              if(resp.accessGranted){
+                hideshow(resp['errors']);
+                setTimeout("reloadhtml()",2000);
+              }
+            },
+            error:function(){
+              hideshow("WHT");
+            }
+          });
+          return ; 
+        }
+        $.ajax({
+          url: urluse,
+          method: 'POST',
+          dataType: 'json',
+          data: {
+            do_xiugai: true,
+            name: usename,
+            stat: stat,
+          },
+          success: function(resp)
+          {
+                                // Redirect after successful login page (when progress bar reaches 100%)
+                                if(resp.accessGranted)
+                                {
+                                  hideshow(resp['errors']);
+                                  setTimeout("reloadhtml()",2000);
+                                }
+                                                        // Show errors
+                                                        if(resp.accessGranted == false)
+                                                        {
+                                                          hideshow(resp['errors']);
+                                                        }
+                                                      }
+                                                    });
+      });
+    });
+
+  </script>
+
+  <div id="ckbox"  class="table-responsive" data-pattern="priority-columns" data-add-focus-btn="true" data-add-display-all-btn="true" data-sticky-table-header="true" data-focus-btn-icon="fa-asterisk">
+
+    <form action="{:U('postbeizhu')}" method="POST">
+      <table class="table table-small-font table-bordered table-striped" cellspacing="0">
+        <thead>
+          <tr>
+            <th data-priority="1">报名序号</th>
+            <th data-priority="1">类别</th>
+            <th data-priority="1">身份证号</th>
+            <th data-priority="1" style="width:60px;">姓名</th>
+             <th data-priority="1">查看</th>
+            <th data-priority="1">身份证</th>
+            <th data-priority="1">国级</th>
+            <th data-priority="1">省级</th>
+            <th data-priority="1">市级</th>
+            <th data-priority="1">其他</th>
+            <th data-priority="1">个人A个数</th>
+            <th data-priority="1" width="80px">实际A个数</th>
+            <th data-priority="1">考试院A个数</th>
+            <th data-priority="1">状态</th>
+            <th data-priority="1">审核</th>
+            <th data-priority="1">备注</th>
+            <th>选择</th>
+          </tr>
+        </thead>
+        <tbody>
+          <volist name="iuser" id="vo">
+            <tr id="{$vo['iname']}">
+              <th>{$vo['id']}</th>
+              <th>{$imjn[$vo['icmajor']]}</th>
+              <td >{$vo['iname']}</td>
+              <td width="100px">{$vo['ixm']}</td>
+
+              <td><a target="_black" href="{:U('Home/User/ptinfo',array('iname'=>$vo['iname']))}" class="btn btn-warning btn-xs">查看</a></td>
+              <td width="150px">
+                <?php 
+                foreach($vo['isczm1'] as $v)
+                echo "<a href='\Public\usepiczm/".$v['iloadsrc']."' /><i class='fa fa-file' aria-hidden='true'></i></a>&nbsp;";  
+                ?> 
+              </td>
+              <td width="100px"><?php 
+                foreach($vo['isczm2'] as $v)
+                echo "<a href='\Public\usepiczm/".$v['iloadsrc']."'/><i class='fa fa-file' aria-hidden='true'></i></a>&nbsp;";  
+                ?> </td>
+                <td width="100px"><?php 
+                  foreach($vo['isczm3'] as $v)
+                  echo "<a href='\Public\usepiczm/".$v['iloadsrc']."'/><i class='fa fa-file' aria-hidden='true'></i></a>&nbsp;";  
+                  ?> </td>
+                  <td width="150px"><?php 
+                    foreach($vo['isczm4'] as $v)
+                    echo "<a href='\Public\usepiczm/".$v['iloadsrc']."'/><i class='fa fa-file' aria-hidden='true'></i></a>&nbsp;";  
+                    ?> </td>
+                    <td width="150px"><?php 
+                      foreach($vo['isczm5'] as $v)
+                      echo "<a href='\Public\usepiczm/".$v['iloadsrc']."'/><i class='fa fa-file' aria-hidden='true'></i></a>&nbsp;";  
+                      ?> </td>
+                      <td>{$vo['iahave']}</td>
+                      <td>{$vo['iahavesj']}</td>
+                      <td>{$vo['iahaveksy']}</td>
+                      <td> <gt name="vo['istat']" value="5" > <a href="#" class="btn btn-success btn-xs">已通过</a> <else/><a href="#"  class="btn btn-red btn-xs" >未通过</a></gt></td>
+                      <td width="240px"><a href="#" caozuo="passone" class="btn btn-success btn-xs">通过</a><a href="#" caozuo="nopassone" class="btn btn-red btn-xs" >不通过</a></td>
+                      <td><div class="col-sm-6">
+                        <input caozuo="smpass" name="{$vo['id']}"  type="text"  value="{$vo['ibsjl']}" placeholder="仅限50字">
+                      </div></td>
+                      <td><input class="cbr" value="{$vo['iname']}"  type="checkbox"></td>
+                    </tr>
+                  </volist>
+                  <tr>
+                    <th></th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+
+                    <td colspan="5" style="text-align:right;"><a href="#" caozuo="passoneall" class="btn btn-success">全部通过</a>&nbsp;<a href="#" caozuo="nopassoneall" class="btn btn-red" >全部不通过</a></td>
+                    <td><div class="col-sm-6"> <button  type="submit" class="btn btn-secondary btn-single">保存</button></div></td>
+
+                    <td><input class="cbr" type="checkbox" onclick="checkAll(this)" >全选</td>
+
+                  </tr>
+                </tbody>
+              </table>
+
+            </form>
+
+          </div>
+          <!-- <div align="right"><input class="cbr" type="checkbox">批量生成</div> -->
+          <div align="right">
+
+            <ul class="pagination pagination-sm">
+              <li>
+                <form class="navbar-left" role="search">
+                  <input id="searchuse" type="text" class="form-control" placeholder="" value="" >
+                </form>
+              </li>
+              <li>
+                <a href="{:U('zjshgl',array('page'=>$page-1))}">
+                  <i class="fa-angle-left"></i>
+                </a>
+              </li>
+              <for start="1" end="$pagenum+1">
+                <if condition="$i eq $page">
+                  <li class="active">
+                    <a href="{:U('zjshgl',array('page'=>$i))}" target="_self">{$i}</a>
+                  </li>
+                  <else />
+                  <li >
+                    <a href="{:U('zjshgl',array('page'=>$i))}" target="_self" >{$i}</a>
+                  </li>
+                </if>
+              </for>
+              <li>
+                <a href="{:U('zjshgl',array('page'=>$page+1))}">
+                  <i class="fa-angle-right"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div id="toast-container" style="display: none" class="toast-top-right toast-default" aria-live="polite" role="alert">
+        <div class="black toast-info"><button class="toast-close-button" role="button">×</button>
+          <div class="toast-title">操作状态</div>
+          <div id="toast-show-my" class="toast-message"></div>
+        </div>
+      </div>
+      <script src="__PUBLIC__/assets/js/bootstrap.min.js"></script>
+      <script >
+
+
+        function searchlink(){
+          var y=document.getElementById('searchbyuse');
+          var x=document.getElementById('searchuse');
+          var bywhat = y.innerHTML;
+          var bydata = x.value;
+          var url = '{:U('zjshgl',array('bywhat'=>'bydata'))}';
+          var urlfinal;
+          if(bydata == ''){
+
+            urlfinal ='{:U('zjshgl')}';
+          }else{
+            var responuse = bywhat+'/'+bydata;
+            urlfinal = url.replace('bywhat/bydata',responuse);
+          }
+          window.open(urlfinal,'_self');
+
+        }
+        function searchby(obj){
+          var x=document.getElementById('searchby');
+          var y=document.getElementById('searchbyuse');
+          var bywhat = obj.name;
+          if(bywhat == 'xm'){
+            y.innerHTML='ixm';
+          }
+          if(bywhat == 'lb'){s
+            y.innerHTML='ilb';
+          }else{
+            y.innerHTML='iname';
+          }
+          x.innerHTML = obj.innerHTML;
+        }
+      </script>
+
+    </body>
+    </html>
+

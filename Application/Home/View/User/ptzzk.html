@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--#include file="inc/conn.inc"-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>浙江农林大学“三位一体”综合评价招生网上报名系统</title>
+        <link rel="stylesheet" type="text/css" href="/style/admin_style.css" />
+        <script language="javascript" src="date.js"></script>
+        <style type="text/css">
+            <!--
+            body {
+                margin: 0;
+                padding: 0;
+                font-size: 14px;
+            }
+            -->
+        </style>
+    </head>
+    <body>
+        <table style="BORDER-COLLAPSE:collapse; margin:10px 40px 0;" bordercolor=#000000  cellpadding=1 width="90%" align=center border=0 height="800px">
+            <tr bgcolor="#ffffff">
+                <td style="padding:3px;"><table style="BORDER-COLLAPSE:collapse; margin-top:0px;" bordercolor=#000000  cellpadding=1 width="100%" align=center border=0>
+                        <tr bgcolor="#ffffff">
+                            <td > <img style="-webkit-user-select: none ;width:180px; " src="{:U('user/qrcode',array('iname'=>$uinfo['iname']))}"></td>
+                            <td height="30" style=""> 
+                                <p style="text-align:center; font-size:24px; font-weight:bold; "> &nbsp;浙江农林大学{$year}年“三位一体”综合评价招生——<span style=" font-size:40px;" >准&nbsp;&nbsp;考&nbsp;&nbsp;证</span></p>
+                            </td>
+                        </tr>
+                    </table>
+                    <table style="BORDER-COLLAPSE:collapse; margin-top:5px;" bordercolor=#000000  cellpadding=1 width="100%" align=center border=0>
+
+                        <tr bgcolor="#ffffff">
+                            <td height="30" style="padding-left:10px; text-align:left;" width="10%"> 网上报名号:{$xuhao} </td>   
+                            <td height="30" style="padding-left:10px; text-align:right;" width="10%"> 考生面试签号:{$mjlb} </td>   
+                        </tr>
+                    </table>  
+                    <table style="BORDER-COLLAPSE:collapse; margin-top:5px;" bordercolor=#000000  cellpadding=1 width="100%" align=center border=1>
+                        <tr bgcolor="#ffffff">
+                            <td height="30" style=" text-align:center;" width="12%"> 准考证号 </td>
+                            <td width="37%" >&nbsp;&nbsp;&nbsp;&nbsp;{$izkzh}</td>
+                            <td height="30" style=" text-align:center;" width="8%"> 姓名 </td>
+                            <td width="20%"  style=" text-align:center;">{$uinfo['ixm']}</td>
+                            <td width="23%" rowspan="5" style="text-align:center">
+                                <img src="__PUBLIC__/usepic/{$uinfo['ipic']}" width="90" height="100" border="0">
+                            </td>
+                        </tr>
+                        <tr bgcolor="#ffffff">
+                            <td height="30" style=" text-align:center;" width="12%" > 身份证号 </td>
+                            <td width="37%">&nbsp;&nbsp;&nbsp;&nbsp;{$uinfo['iname']}</td>
+                            <td height="30" style=" text-align:center;" width="8%" > 性别 </td>
+                            <td width="20%" style=" text-align:center;">{$uinfo['ixb']}</td>
+                        </tr>
+                        <tr bgcolor="#ffffff">
+                            <td height="30"  width="12%" style=" text-align:center;"> 中学名称 </td>
+                            <td width="37%">&nbsp;&nbsp;&nbsp;&nbsp;{$uinfo['ibyzx']}</td>
+                            <td height="30"  width="8%" style=" text-align:center;"> 民族</td>
+                            <td width="20%" style=" text-align:center;">{$uinfo['imz']}</td>
+                        </tr>
+                        <tr bgcolor="#ffffff">
+                            <td height="30"  width="12%" style="padding-right:10px; text-align:center;">  测试类别 </td>
+                            <td width="37%">&nbsp;&nbsp;&nbsp;&nbsp;{$mname}</td>
+                            <td height="30" style=" text-align:center;" width="12%">测试地点</td>
+                            <td >&nbsp;&nbsp;&nbsp;&nbsp;杭州市临安区武肃街666号<br>&nbsp;&nbsp;&nbsp;&nbsp;浙江农林大学东湖校区（详见现场考场示意图）</td>
+                        </tr>
+                    </table>
+                    <table style="BORDER-COLLAPSE:collapse; margin-top:5px;" bordercolor=#000000  cellpadding=0 width="100%" align=center border=1>
+                        <tr bgcolor="#ffffff">
+                            <td height="30" style=" text-align:center; font-weight:bold;" colspan="4"> <br>
+                                <br>
+                                综合素质测试时间安排表<br>
+                                <br> </td>
+                        </tr>
+                        <tr bgcolor="#ffffff" style="text-align:center; font-weight:bold;">
+                            <td height="30"  width="15%"  style="text-align:center;"> 测试科目 </td>
+                            <td width="15%" style="text-align:center;">考试日期</td>
+                            <td height="30"  width="32%"  style="text-align:center;"> 考试时间</td>
+                            <td width="38%" style="text-align:center;">备注</td>
+                        </tr><!--
+                        <tr bgcolor="#ffffff">
+                            <td height="30"  style="text-align:left; padding-left:30px;"> 徒手画 </td>
+                            <td  >&nbsp;&nbsp;5月5日</td>
+                            <td  >&nbsp;上午8：20—8：50（30分钟）</td>
+                            <td  >&nbsp;集中测试</td>
+                        </tr>-->
+                        <tr bgcolor="#ffffff">
+                            <td height="30"  style="text-align:left; padding-left:30px;"> 面&nbsp;&nbsp;试</td>
+                            <td >&nbsp;&nbsp;4月22日</td>
+                            <td >&nbsp;上午8：30开始</td>
+                            <td >&nbsp;根据抽签情况安排考生面试起止时间</td>
+                        </tr>
+                        <tr bgcolor="#ffffff">
+                            <td style=" text-align:center; font-weight:bold;" colspan="2">
+                                书面评审备注
+                            </td>
+                            <td style=" text-align:center; font-weight:bold;" colspan="2">
+                                &nbsp;&nbsp;{$uinfo['ibsjl']}
+                            </td>
+                    </tr></table>
+
+                    <table style="BORDER-COLLAPSE:collapse; margin-top:5px;" bordercolor=#000000  cellpadding=0 width="100%" align=center border=0>
+                        <tr>
+                            <td  width="100%" height="30px"  style="text-align:center;  vertical-align:top;"><br /><br /><br /><br />
+                                <strong>综合素质测试须知</strong>
+                            </td>
+                            </tr><tr>
+                            <td  width="100%"  colspan="4" style="text-align:left; padding-left:30px; line-height:30px;">
+                                <p>1.通过学校书面评审并成功缴费的考生来校现场报到和综合测试时须随带准考证和身份证（无身份证者请带有本人同底照片的户籍证明）入场备查。   </p>
+                                <p> 2.请考生于4月21日8：00-18：00到浙江农林大学东湖校区报到，签订诚信承诺书，熟悉考场等。        </p>
+
+                                <!-- <p>4.徒手画测试所需铅笔、水笔、直尺、三角板、橡皮等考试工具请考生自带。</p>-->
+                                <p> 3.除准考试、身份证及规定的考试工具外，严禁携带手机、相机、备考资料等电子设备或物品进入考场。</p>
+                                <p> 4.请考生认真阅读所附文件资料，并妥善保管本准考证，以备后用。 </p></td>
+                        </tr>
+                    </table>
+                    <table style="BORDER-COLLAPSE:collapse; margin-top:5px;" bordercolor=#000000  cellpadding=0 width="100%" align=center border=0>
+                        <tr>
+                            <td  width="100%" height="300px"  style="text-align:right; padding-right:30px; height:50px; vertical-align:top;"> <br />
+                                <br />
+                                浙江农林大学招生办公室<br /><br />
+                        </p></td>
+                    </tr>
+            </table></td>
+        </tr>
+    </table>
+
+    <!--内容结束-->
+
+</body>
+</html>

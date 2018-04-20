@@ -1,0 +1,251 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--#include file="inc/conn.inc"-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>浙江农林大学“三位一体”综合评价招生网上报名系统</title>
+    <link rel="stylesheet" type="text/css" href="/style/admin_style.css" />
+    <script language="javascript" src="date.js"></script>
+</head>
+
+<body id="ibody" >
+
+<table width="90%"  border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#cccccc"   style="  margin-top:23px;" >
+
+    <tr bgcolor="#ffffff"  >
+
+        <!-- <td  width="20%" > <img style="-webkit-user-select: none" src="{:U('user/qrcode',array('iname'=>$uinfo['iname']))}"></td> -->
+        <td height="18" colspan="4" width="80%"  style="text-align:center; font-size:20px; font-weight:bold; ">&nbsp;
+            浙江农林大学2018“三位一体”综合评价招生申请表</td>
+    </tr>
+
+
+</table>
+
+<table width="90%"  border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#cccccc"   style="margin-top:23px;" >
+    <tr bgcolor="#ffffff">
+        <td height="32" colspan="4" style="text-align:left; font-size:12px; font-weight:bold; ">&nbsp;
+            所选大类：{$imajor}</td>
+        <td height="32" colspan="4" style="text-align:right; font-size:12px; font-weight:bold; ">&nbsp;
+            网上报名号：{$xuhao}</td>
+    </tr>
+</table>
+<table style="BORDER-COLLAPSE:collapse; margin-top:5px;" bordercolor=#000000  cellpadding=1 width="90%" align=center border=1>
+    <tr bgcolor="#ffffff">
+        <td height="30"  width="11%" style="padding-right:10px; text-align:right;"> 姓名</td>
+        <td width="24%">&nbsp; {$uinfo['ixm']}</td>
+        <td height="30"  width="10%" style="padding-right:10px; text-align:right;"> 出生日期</td>
+        <td width="28%">&nbsp; {$uinfo['icssj']}</td>
+        <td width="27%" rowspan="5" style="text-align:center">
+
+            <img src="__PUBLIC__/usepic/{$uinfo['ipic']}" width="90" height="100" border="0">
+            <!-- <%if len(trim(rs("ipic")))>0 then%>
+            <a href="pic_upload.asp?picid=<%=rs("id")%>" target="_blank"><img src="<%=trim(rs("ipic"))%>"  height="150"  border="0"></a>
+            <%else%>
+            <a href="pic_upload.asp?picid=<%=rs("id")%>" target="_blank"><img src="images/nopic.gif" width="90" height="100" border="0"></a>
+            <%end if%> -->
+        </td>
+    </tr>
+    <tr bgcolor="#ffffff">
+        <td height="30" style="padding-right:10px; text-align:right;" width="11%" > 性别</td>
+        <td width="24%">&nbsp;{$uinfo['ixb']}</td>
+        <td height="30"  width="10%" style="padding-right:10px; text-align:right;"> 民族</td>
+        <td width="28%">&nbsp;{$uinfo['imz']}</td>
+    </tr>
+    <tr bgcolor="#ffffff">
+        <td height="30" style="padding-right:10px; text-align:right;" width="11%" > 考生类别</td>
+        <td width="24%">&nbsp;{$uinfo['ilb']}</td>
+        <td height="30"  width="10%" style="padding-right:10px; text-align:right;"> 政治面貌</td>
+        <td width="28%">&nbsp;{$uinfo['izzmm']}</td>
+    </tr>
+    <tr bgcolor="#ffffff">
+        <td height="30" style="padding-right:10px; text-align:right;" width="11%" >高考考生号</td>
+        <td width="24%">&nbsp;{$uinfo['igkxh']}</td>
+        <td height="30" style="padding-right:10px; text-align:right;" width="10%"> 学籍辅号</td>
+        <td width="28%">&nbsp;{$uinfo['ihkzh']}</td>
+    </tr>
+    <tr bgcolor="#ffffff">
+        <td height="30" style="padding-right:10px; text-align:right;" width="11%"> 家庭电话</td>
+        <td width="24%">&nbsp;{$uinfo['itel']}</td>
+        <td height="30" style="padding-right:10px; text-align:right;"> 手机号码</td>
+        <td width="28%">&nbsp;{$uinfo['imobile']}</td>
+    </tr>
+    <tr bgcolor="#ffffff">
+        <td height="30" style="padding-right:10px; text-align:right;" width="11%"> 电子邮箱</td>
+        <td width="24%">&nbsp;{$uinfo['iemail']}</td>
+        <td height="30" style="padding-right:10px; text-align:right;" width="10%"> 身份证号</td>
+        <td colspan="2">&nbsp;{$uinfo['iname']}</td>
+    </tr>
+    <tr bgcolor="#ffffff"><td height="30" style="padding-right:10px; text-align:right;" width="11%"> 选考科目： </td><td colspan="1">&nbsp;{$ixkkm[0]['kmname']}&nbsp;{$ixkkm[1]['kmname']}&nbsp;{$ixkkm[2]['kmname']}</td><td height="30" style="padding-right:10px; text-align:right;" width="10%"> 通信地址</td>
+        <td colspan="2">&nbsp;{$uinfo['iaddr']}</td></tr>
+</table>
+<table style="BORDER-COLLAPSE:collapse; margin-top:5px;" bordercolor=#000000  cellpadding=1 width="90%" align=center border=1>
+    <tr style="background-color:#fff; text-align:center; height:30px;">
+        <td style="text-align:center;">家庭成员</td>
+        <td style="text-align:center;">姓名</td>
+        <td style="text-align:center;">文化程度</td>
+        <td style="text-align:center;">工作单位</td>
+        <td style="text-align:center;">职务</td>
+        <td style="text-align:center;">联系电话</td>
+    </tr>
+    <tr style="background-color:#fff; height:30px;">
+        <td style="text-align:center;">父亲</td>
+        <td style="text-align:center;">&nbsp; {$uinfo['if1']}</td>
+        <td style="text-align:center;">&nbsp; {$uinfo['if2']}</td>
+        <td style="text-align:center;">&nbsp; {$uinfo['if3']}</td>
+        <td style="text-align:center;">&nbsp; {$uinfo['if4']}</td>
+        <td style="text-align:center;">&nbsp; {$uinfo['if5']}</td>
+    </tr>
+    <tr style="background-color:#fff; height:30px;">
+        <td style="text-align:center;">母亲</td>
+        <td style="text-align:center;">&nbsp; {$uinfo['im1']}</td>
+        <td style="text-align:center;">&nbsp; {$uinfo['im2']}</td>
+        <td style="text-align:center;">&nbsp; {$uinfo['im3']}</td>
+        <td style="text-align:center;">&nbsp; {$uinfo['im4']}</td>
+        <td style="text-align:center;">&nbsp; {$uinfo['im5']}</td>
+    </tr>
+</table>
+<table style="BORDER-COLLAPSE:collapse; margin-top:5px;" bordercolor=#000000  cellpadding=1 width="90%" align=center border=1>
+    <tr style="background-color:#fff; height:30px;">
+        <td style="text-align:center;" width="10%">毕业中学</td>
+        <td colspan="3">&nbsp;{$uinfo['ibyzx']}</td>
+        <td style="text-align:center;" width="10%">中学地址</td>
+        <td colspan="3">&nbsp;{$uinfo['ibyaddr']}</td>
+    </tr>
+    <tr style="background-color:#fff; height:30px;">
+        <td style="text-align:center;" width="10%">邮编</td>
+        <td width="15%">&nbsp;{$uinfo['ibycode']}</td>
+        <td width="10%" style="text-align:center;">中学联系人</td>
+        <td width="15%">&nbsp;{$uinfo['ibyteac']}</td>
+        <td width="10%" style="text-align:center;" >联系人电话</td>
+        <td width="15%">&nbsp;{$uinfo['ibytetel']}</td>
+        <td width="10%" style="text-align:center;" >中学电话</td>
+        <td width="15%">&nbsp;{$uinfo['ibytel']}</td>
+    </tr>
+</table>
+<table style="BORDER-COLLAPSE:collapse; margin-top:5px;" bordercolor=#000000  cellpadding=1 width="90%" align=center border=1>
+
+    <tr style="background-color:#fff; height:30px;">
+        <td style="text-align:center;" width="100%" colspan="13">学业水平测试成绩（高中会考）</td>
+    </tr>
+    <tr style="background-color:#fff; height:30px;">
+        <td style="text-align:center;" width="10%">科目</td>
+        <td width="9%" style="text-align:center;">历史</td>
+        <td width="9%" style="text-align:center;">地理</td>
+        <td width="9%" style="text-align:center;">英语</td>
+        <td width="9%" style="text-align:center;">物理</td>
+        <td width="9%" style="text-align:center;" >化学</td>
+        <td width="9%" style="text-align:center;">思想政治</td>
+        <td width="9%" style="text-align:center;">生物</td>
+        <td width="9%" style="text-align:center;">技术</td>
+        <td width="9%" style="text-align:center;">语文</td>
+        <td width="9%" style="text-align:center;">数学</td>
+    </tr>
+    <tr style="background-color:#fff; height:30px;">
+                <td style="text-align:center;" width="10%">等地</td>
+        <td width="9%" style="text-align:center;">  {$uinfo['ials']}</td>
+        <td width="9%" style="text-align:center;">{$uinfo['iadl']}</td>
+        <!-- <td width="7%" style="text-align:center;">{$uinfo['iaxx']}</td> -->
+        <td width="9%" style="text-align:center;">{$uinfo['iayy']}</td>
+        <td width="9%" style="text-align:center;">{$uinfo['iawl']}</td>
+        <td width="9%" style="text-align:center;">{$uinfo['iahx']}</td>
+        <td width="9%" style="text-align:center;">{$uinfo['iasz']}</td>
+        <td width="9%" style="text-align:center;">{$uinfo['iasw']}</td>
+        <td width="9%" style="text-align:center;">{$uinfo['iajs']}</td>
+        <td width="9%" style="text-align:center;">{$uinfo['iayw']}</td>
+        <td width="9%" style="text-align:center;">{$uinfo['iasx']}</td>
+        <!-- <td width="7%" style="text-align:center;">{$uinfo['iazx']}</td> -->
+    </tr>
+</table>
+<table style="BORDER-COLLAPSE:collapse; margin-top:5px;" bordercolor=#000000  cellpadding=1 width="90%" align=center border=1>
+
+    <tr style="background-color:#fff; height:30px;">
+        <td style="text-align:center;" width="20%">高中综合素质评价：</td>
+        <td width="80%" style="text-align:left; padding:3px;" >&nbsp;{$uinfo['izhszpj']}</td>
+    </tr>
+
+
+
+    <!-- <tr style="background-color:#fff; height:30px;"> -->
+    <!--     <td style="text-align:center;" width="20%">高中阶段参加的竞赛类别、竞赛名称、时间、竞赛级别、取得名次：</td> -->
+    <!--     <td width="80%" style="text-align:left; padding:3px;" >&nbsp;{$uinfo['ibsjl']}</td> -->
+    <!-- </tr> -->
+    <!-- <tr style="background-color:#fff; height:30px;"> -->
+    <!--     <td style="text-align:center;" width="20%">高中阶段参与的社会工作和课外活动（含活动时间、受过何种奖励、本人在活动中的职务或者职责）：</td> -->
+    <!--     <td width="80%" style="text-align:left; padding:3px;">&nbsp;{$uinfo['ishjl']}</td> -->
+    <!-- </tr> -->
+    <!-- <tr style="background-color:#fff; height:30px;"> -->
+    <!--     <td style="text-align:center;" width="20%">特长和爱好：</td> -->
+    <!--     <td width="80%" style="text-align:left; padding:3px;">&nbsp;{$uinfo['itcah']}</td> -->
+    <!-- </tr> -->
+</table>
+<table style="BORDER-COLLAPSE:collapse; margin-top:5px;" bordercolor=#000000  cellpadding=1 width="90%" align=center border=1>
+    <tr style="background-color:#fff; height:30px;">
+        <td style="text-align:center;" width="8%">获奖类别</td>
+        <td width="7%" style="text-align:center;">国家级</td>
+        <td width="7%" style="text-align:center;">省级</td>
+        <td width="7%" style="text-align:center;">市级</td>
+        <td width="7%" style="text-align:center;">其他</td>
+        <td width="7%" style="text-align:center;">身份证明</td>
+        <td width="7%" style="text-align:center;"></td>
+    </tr>
+    <tr style="background-color:#fff; height:30px;">
+        <td style="text-align:center;" width="8%">获奖个数</td>
+        <td width="7%" style="text-align:center;">  {$uinfo['isczm2']}</td>
+        <td width="7%" style="text-align:center;">{$uinfo['isczm3']}</td>
+        <!-- <td width="7%" style="text-align:center;">{$uinfo['iaxx']}</td> -->
+        <td width="7%" style="text-align:center;">{$uinfo['isczm4']}</td>
+        <td width="7%" style="text-align:center;">{$uinfo['isczm5']}</td>
+        <td width="7%" style="text-align:center;">上传身份材料</td>
+        <td width="7%" style="text-align:center;">{$uinfo['isczm1']}</td>
+        <!-- <td width="7%" style="text-align:center;">{$uinfo['iazx']}</td> -->
+    </tr>
+</table>
+
+
+<table style="BORDER-COLLAPSE:collapse; margin-top:5px;" bordercolor=#000000  cellpadding=1 width="90%" align=center border=1>
+    <tr bgcolor="#ffffff">
+        <td width="14%" height="32"  style="text-align:center;">以上内容是否属实</td>
+        <td width="25%" height="32"  style="text-align:center;">&nbsp;</td>
+        <td width="10%" height="32"  style="text-align:center;">学生本人签字</td>
+
+        <td width="23%" height="32"  style="text-align:center;">&nbsp;</td>
+        <td width="7%" height="32"  style="text-align:center;">填表日期</td>
+
+        <td width="17%" height="32"  style="text-align:center;">&nbsp;</td>
+    </tr>
+</table>
+<table style="position:relative; BORDER-COLLAPSE:collapse; margin-top:5px;" bordercolor=#000000  cellpadding=1 width="90%" align=center border=1>
+    <tr bgcolor="#ffffff">
+        <td width="14%" height="162"  style="text-align:center;">中学意见</td>
+        <td width="86%" height="162" >
+            <!-- <div  style="text-align:left; padding-left:50px; vertical-align:bottom; padding-bottom:10px;">             -->
+            <!-- 该生的选考科目：&nbsp;{$ixkkm[0]['kmname']}&nbsp;{$ixkkm[1]['kmname']}&nbsp;{$ixkkm[2]['kmname']}，<br> -->
+            请对该生的报名信息，尤其是综合素质评价，会考等第，选考科目等信息进行核实
+            <!-- </div>  -->
+            <!-- <br> -->
+            <!-- <div  style="position:absolute;bottom:10px; right:10px;text-align:right; padding-right:50px; vertical-align:bottom; padding-bottom:10px;" >             -->
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div style="text-align:center;" >
+                &nbsp;校长签名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（学校公章）<br>
+                <br>
+                <br>
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;     年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日
+            </div>
+            <!-- </div> -->
+
+        </td>
+    </tr>
+
+    <tr style="background-color:#fff; height:30px;">
+        <td style="text-align:center;" width="14%">备注：</td>
+        <td width="86%" style="text-align:left; padding:3px;" >&nbsp;</td>
+    </tr>
+</table>
+
+</body>
+</html>

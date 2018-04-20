@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Xenon Boostrap Admin Panel" />
+    <meta name="author" content="" />
+    <title>浙江农林大学三位一体报名系统</title>
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/400700.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/fonts/linecons/css/linecons.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/fonts/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-core.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-forms.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-components.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-skins.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/custom.css">
+    <script src="__PUBLIC__/assets/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/myjs/IDValidator.js" charset="utf-8" ></script>
+<script type="text/javascript" src="__PUBLIC__/myjs/GB2260.js" charset="utf-8" ></script>
+</head>
+<body class="page-body">
+    <div class="page-container">
+        <div class="main-content">
+            <!-- User Info, Notifications and Menu Bar -->
+            <div class="page-title">
+                <div class="title-env">
+                    <h1 class="title">浙江农林大学</h1>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h4>“三位一体”综合报名系统</h4>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">考生注册</h3>
+
+                            <script type="text/javascript">
+                            var Validator = new IDValidator();
+                            function reloadto(){
+                                    window.location.href = '{:U('Index/index')}';
+                            }
+                            jQuery(document).ready(function(){
+                                $("form#regist").validate({
+                                    rules:{
+                                        iname:{required:true,
+                                        },
+                                         ixm:{required:true},
+
+                                        ipwd:{
+                                            required:true,
+                                            minlength: 5
+                                        },
+										 imobile:{
+                                            required:true,
+                                            minlength: 11
+                                        },
+                                        ipwd2:{required:true}
+                                    },
+                                    message:{
+                                        iname:{
+                                            required:'11111',
+
+                                    },
+                                        ixm:{
+                                            required:'2222'
+                                    },
+                                        ipwd:{
+                                            required:'3333',
+                                            minlength: "111"
+                                    },
+                                        ipwd2:{required:'4444'}
+                                    },
+
+                                    submitHandler: function(form){
+                                            show_loading_bar(70); // Fill progress bar to 70% (just a given value)
+                                            var icode = $(form).find('#iname').val();
+                                            var codeinfo;
+                                            if(!Validator.isValid(icode)){
+                                                $(".errors-container").html('<div class="alert alert-danger">\
+                                                <button type="button" class="close" data-dismiss="alert">\
+                                                    <span aria-hidden="true">&times;</span>\
+                                                    <span class="sr-only">Close</span>\
+                                                </button>\
+                                                <strong>注册失败!\</strong>\<br />请填写有效的身份证号!\
+                                            </div>');
+
+                                                return;
+                                            }
+                                            codeinfo = Validator.getInfo(icode);
+                                            
+                                            var opts = {
+                                                "closeButton": true,
+                                    "debug": false,
+                                    "positionClass": "toast-top-full-width",
+                                    "onclick": null,
+                                    "showDuration": "300",
+                                    "hideDuration": "1000",
+                                    "timeOut": "5000",
+                                    "extendedTimeOut": "1000",
+                                    "showEasing": "swing",
+                                    "hideEasing": "linear",
+                                    "showMethod": "fadeIn",
+                                    "hideMethod": "fadeOut"
+                                            };
+
+                                            $.ajax({
+                                                url: "{:U('ptcheck')}",
+                                    method: 'POST',
+                                    dataType: 'json',
+                                    data: {
+                                        do_regist: true,
+                                        iname: $(form).find('#iname').val(),
+                                        ipwd: $(form).find('#ipwd').val(),
+                                        ipwd2: $(form).find('#ipwd2').val(),
+                                        imobile: $(form).find('#imobile').val(),
+                                        ixm: $(form).find('#ixm').val(),
+                                        xxb: codeinfo['sex'],
+                                        cssj:codeinfo['birth'],
+                                        addr:codeinfo['addr'],
+                                    },
+                                    success: function(resp)
+                                                {
+                                                    show_loading_bar({
+                                                        delay: .5,
+                                            pct: 100,
+                                            finish: function(){
+
+                                                // Redirect after successful login page (when progress bar reaches 100%)
+                                                if(resp.accessGranted)
+                                                {
+                                                    $(".errors-container").html('<div class="alert alert-success">\
+                                                <button type="button" class="close" data-dismiss="alert">\
+                                                    <span aria-hidden="true">&times;</span>\
+                                                    <span class="sr-only">Close</span>\
+                                                </button>\
+                                                <strong>注册成功!\</strong>\<br />正在前往登录页面!\
+                                            </div>');
+
+                                            setTimeout('reloadto()',1000);
+                                                }
+                                                                                        }
+                                        });
+
+
+                                        // Remove any alert
+                                        $(".errors-container .alert").slideUp('fast');
+                                        // Show errors
+                                        if(resp.accessGranted == false)
+                                        {
+                                            $(".errors-container").html('<div class="alert alert-danger">\
+                                                <button type="button" class="close" data-dismiss="alert">\
+                                                    <span aria-hidden="true">&times;</span>\
+                                                    <span class="sr-only">Close</span>\
+                                                </button>\
+                                                ' + resp.errors + '\
+                                            </div>');
+
+
+                                            $(".errors-container .alert").hide().slideDown();
+                                            $(form).find('#iname').select();
+                                        }
+                                            }
+                                });
+
+                            }
+                                });
+
+                            });
+
+                            </script>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="errors-container">
+
+                            </div>
+                            <form role="form" class="form-horizontal" id="regist" name="regist" id="regist" method="POST">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="tagsinput-1">身份证号</label>
+                                    <div class="col-sm-9">
+                                        <div class="input-group">
+                                            <span class="twitter-typeahead" style="position: relative; display: inline-block; direction: ltr;">
+                                            <input name="iname" type="text" class="form-control tt-input" id="iname" autocomplete="off" spellcheck="false" dir="auto" style="position: relative; vertical-align: top; background-color: transparent;">
+                                            <pre aria-hidden="true" style="position: absolute; visibility: hidden; white-space: pre; font-family: Arimo, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre>
+                                            <span class="tt-dropdown-menu overflow-hidden ps-container" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none; right: auto;">
+                                            <div class="tt-dataset-states"></div>
+                                            <div class="ps-scrollbar-x-rail" style="display: block; width: 1033px; left: 0px; bottom: 3px;"><div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="display: block; top: 0px; height: 0px; right: 2px;"><div class="ps-scrollbar-y" style="top: 0px; height: 0px;"></div></div></span></span>						
+                                            <span class="input-group-addon">
+                                                <i class="fa-globe"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group-separator"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="tagsinput-2">姓名</label>
+                                    <div class="col-sm-9">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa-user"></i>
+                                            </span>
+                                            <span class="twitter-typeahead" style="position: relative; display: inline-block; direction: ltr;">
+                                            <input name="ixm" type="text" class="form-control tt-input" id="ixm" placeholder="" autocomplete="off" spellcheck="false" dir="auto" style="position: relative; vertical-align: top; background-color: transparent;"><pre aria-hidden="true" style="position: absolute; visibility: hidden; white-space: pre; font-family: Arimo, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre><span class="tt-dropdown-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none; right: auto;"><div class="tt-dataset-names"></div></span></span>
+                                        </div>
+                                    </div>
+                                </div>									
+								
+								<div class="form-group-separator"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="tagsinput-2">联系电话</label>
+                                    <div class="col-sm-9">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa-mobile"></i>
+                                            </span>
+                                            <span class="twitter-typeahead" style="position: relative; display: inline-block; direction: ltr;">
+                                            <input name="imobile" type="text" class="form-control tt-input" id="imobile" placeholder="" autocomplete="off" spellcheck="false" dir="auto" style="position: relative; vertical-align: top; background-color: transparent;"><pre aria-hidden="true" style="position: absolute; visibility: hidden; white-space: pre; font-family: Arimo, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre><span class="tt-dropdown-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none; right: auto;"><div class="tt-dataset-names"></div></span></span>
+                                        </div>
+                                    </div>
+                                </div>		
+								
+								
+                                <div class="form-group-separator"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="tagsinput-2">密码</label>
+                                    <div class="col-sm-9">
+                                        <span class="twitter-typeahead" style="position: relative; display: inline-block; direction: ltr;">
+                                        <input name="ipwd" type="password" class="form-control tt-input" id="ipwd" placeholder="" autocomplete="off" spellcheck="false" dir="auto" style="position: relative; vertical-align: top; background-color: transparent;"><pre aria-hidden="true" style="position: absolute; visibility: hidden; white-space: pre; font-family: Arimo, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre><span class="tt-dropdown-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none; right: auto;"><div class="tt-dataset-string-randomizer"></div></span></span>
+                                    </div>
+                                </div>
+                                <div class="form-group-separator"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="tagsinput-2">确认密码</label>
+                                    <div class="col-sm-9">
+                                        <span class="twitter-typeahead" style="position: relative; display: inline-block; direction: ltr;">
+                                        <input name="ipwd2" type="password" class="form-control tt-input" id="ipwd2" placeholder="" autocomplete="off" spellcheck="false" dir="auto" style="position: relative; vertical-align: top; background-color: transparent;"><pre aria-hidden="true" style="position: absolute; visibility: hidden; white-space: pre; font-family: Arimo, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre><span class="tt-dropdown-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none; right: auto;"><div class="tt-dataset-harry-potter-movies"></div></span></span>
+                                </div>
+								
+                            </div>
+                            <script>
+                                $(function(){
+                                    var regBtn = $("#submit");
+                                    $("#accept").change(function(){
+                                        var that = $(this);
+                                        that.prop("checked",that.prop("checked"));
+                                        if(that.prop("checked")){
+                                            regBtn.prop("disabled",false)
+                                        }else{
+                                            regBtn.prop("disabled",true)
+                                        }
+                                    });
+                                });
+                            </script>
+                            <!-- <div class="form-group" style="alignment-adjust: auto">
+
+                                    <label class="col-sm-3 control-label" for="tagsinput-2"></label>
+                                    <div class="col-sm-9">
+
+                            <label>
+                                <input  name="accept" type="checkbox" id="accept" >
+                                我已阅读<a href="__PUBLIC__/htmluse/xieyi.html" target="__blank" >协议</a>并同意注册
+                            </label>
+                            <br>
+                                <button   name="submit" id="submit"  disabled="disabled" class="btn btn-success">确认</button> 
+                                <button type="reset" class="btn btn-white">重置</button>
+                                </div>
+                            </div>  -->    
+                        </form>
+						<h4>报名已经截止</h4>
+                    </div>
+                    <div class="form-group"></div>
+                </div>
+                <!-- Main Footer -->
+                <!-- Choose between footer styles: "footer-type-1" or "footer-type-2" -->
+                <!-- Add class "sticky" to  always stick the footer to the end of page (if page contents is small) -->
+                <!-- Or class "fixed" to  always fix the footer to the end of page -->
+                <footer class="main-footer sticky footer-type-1">
+                    <div class="footer-inner">
+                        <!-- Add your copyright text here -->
+                        <div class="footer-text">
+                            ©&nbsp; 浙江农林大学招生办 
+                             - 版权所有
+                        </div>
+                        <!-- Go to Top Link, just add rel="go-top" to any link to add this functionality -->
+                        <div class="go-up">
+                            <a href="#" rel="go-top">
+                                <i class="fa-angle-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+            <!-- start: Chat Section -->
+            <div id="chat" class="fixed">
+                <div class="chat-inner">
+                    <h2 class="chat-header">
+                        <a href="#" class="chat-close" data-toggle="chat">
+                            <i class="fa-plus-circle rotate-45deg"></i>
+                        </a>
+                        Chat
+                        <span class="badge badge-success is-hidden">0</span>
+                    </h2>
+                    <script type="text/javascript">
+                        // Here is just a sample how to open chat conversation box
+                jQuery(document).ready(function($)
+                    {
+                        var $chat_conversation = $(".chat-conversation");
+
+                        $(".chat-group a").on('click', function(ev)
+                            {
+                                ev.preventDefault();
+
+                                $chat_conversation.toggleClass('is-open');
+
+                                $(".chat-conversation textarea").trigger('autosize.resize').focus();
+                            });
+
+                        $(".conversation-close").on('click', function(ev)
+                            {
+                                ev.preventDefault();
+                                $chat_conversation.removeClass('is-open');
+                            });
+                    });
+                    </script>
+                </div>
+                <!-- conversation template -->
+            </div>
+            <!-- end: Chat Section -->
+        </div>
+        <!-- Bottom Scripts -->
+        <script src="__PUBLIC__/assets/js/bootstrap.min.js"></script>
+        <script src="__PUBLIC__/assets/js/TweenMax.min.js"></script>
+        <script src="__PUBLIC__/assets/js/resizeable.js"></script>
+        <script src="__PUBLIC__/assets/js/joinable.js"></script>
+        <script src="__PUBLIC__/assets/js/xenon-api.js"></script>
+        <script src="__PUBLIC__/assets/js/xenon-toggles.js"></script>
+        <!-- JavaScripts initializations and stuff -->
+        <script src="__PUBLIC__/assets/js/xenon-custom.js"></script>
+            <script src="__PUBLIC__/assets/js/toastr/toastr.min.js"></script>
+        <script src="__PUBLIC__/assets/js/jquery-validate/jquery.validate.min.js"></script>
+    </body>
+</html>

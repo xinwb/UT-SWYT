@@ -1,0 +1,260 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/400700.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/fonts/linecons/css/linecons.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/fonts/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-core.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-forms.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-components.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-skins.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/custom.css">
+
+    <script src="__PUBLIC__/assets/js/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+<include file="Index/topbaruse" />
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <!--<h3 class="panel-title">Adjustable Responsive Table</h3>-->
+            <div class="panel-options">
+                <a href="__SELF__" data-toggle="reload">
+                    <i class="fa-rotate-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="panel-body" style="padding-top: 10px;">
+            <p style="margin-bottom: 10px;">当前位置：个人信息管理</p>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="#">关键词</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <b id="searchby">按身份证号查找</b><b class="caret"></b></a>
+                        <ul class="dropdown-menu dropdown-primary">
+                            <li><a name="card" onclick="searchby(this)">按身份证号查找</a></li>
+                            <li><a name="xm" onclick="searchby(this)">按姓名查找</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <form class="navbar-form navbar-left" role="search">
+                            <div class="form-group">
+                                <input id="searchuse" type="text" class="form-control" placeholder="" value="" >
+                            </div>
+                        </form>
+                    </li>
+
+                    <li><a type="button" onclick="searchlink()" class="btn btn-gary">搜索</a></li>
+                <a href="{:U('Managers/dcxsxx')}" class="btn btn-purple btn-sm">导出全部</a>
+                    <b id="searchbyuse" style="display:none" >iname</b>
+
+                </ul>
+            </div> 
+
+
+
+            <script type="text/javascript">
+                function searchlink(){
+                    var y=document.getElementById('searchbyuse');
+                    var x=document.getElementById('searchuse');
+                    var bywhat = y.innerHTML;
+                    var bydata = x.value;
+                    var url = '{:U('grxxgl',array('bywhat'=>'bydata'))}';
+                    var urlfinal;
+                    if(bydata == ''){
+                        urlfinal ='{:U('grxxgl')}';
+                    }else{
+                        var responuse = bywhat+'/'+bydata;
+                        urlfinal = url.replace('bywhat/bydata',responuse);
+                    }
+                    window.open(urlfinal,'_self');
+
+                }
+                function searchby(obj){
+                    var x=document.getElementById('searchby');
+                    var y=document.getElementById('searchbyuse');
+                    var bywhat = obj.name;
+                    if(bywhat == 'xm'){
+                        y.innerHTML='ixm';
+                    }else{
+                        y.innerHTML='iname';
+                    }
+                    x.innerHTML = obj.innerHTML;
+                } 
+                 function hideshow(info){
+                     codebasefuns(info);
+                      setTimeout("codefans()",2000);
+
+                 }
+        function codebasefuns(info){
+
+            var box=document.getElementById("toast-container");
+            var boxshowmy=document.getElementById("toast-show-my");
+            boxshowmy.innerHTML=info;
+            box.style.display="";
+        }
+        function codefans(){
+            var box=document.getElementById("toast-container");
+            box.style.display="none"; 
+        }
+
+        function reloadhtml(){
+            window.location.reload();
+        }
+               jQuery(document).ready(function($){
+                   $("td a").click(function(){
+                       var classusename = this.id;
+                       if(classusename == ''){
+                           return ;
+                       }
+
+                       var usename = this.closest('tr').id;
+                       var urluse = "{:U('tuihui')}";
+                       var tixing = '是否退回此学生信息';
+                       if(classusename == 'shanchu'){
+
+                           tixing = '是否删除此学生信息';
+                           urluse = "{:U('shanchu')}";
+                       }
+
+                       if(!confirm(tixing)){
+                           return;
+                       }
+
+                       $.ajax({
+                           url: urluse,
+                        method: 'POST',
+                        dataType: 'json',
+                        data: {
+                            do_tuihui: true,
+                            iname: usename,
+                        },
+
+
+                        success: function(resp)
+                           {
+
+                               // Redirect after successful login page (when progress bar reaches 100%)
+                                                if(resp.accessGranted)
+                                                    {
+                                                        hideshow('操作成功!');
+
+                                                        setTimeout("reloadhtml()",2000);
+                                                    }
+                                                        // Show errors
+                                                        if(resp.accessGranted == false)
+                                                            {
+
+                                                                hideshow('操作失败!');
+                                                            }
+                           }
+
+
+                       });
+                   });
+               });
+
+                function checkAll(obj){
+                    $("#ckbox input[type='checkbox']").prop('checked', $(obj).prop('checked'));
+                }
+
+            </script>
+
+
+            <div id="ckbox" class="table-responsive" data-pattern="priority-columns" data-add-focus-btn="true" data-add-display-all-btn="true" data-sticky-table-header="true" data-focus-btn-icon="fa-asterisk">
+                <table class="table table-small-font table-bordered table-striped" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th data-priority="6">报名序号</th>
+                            <th data-priority="6">身份证号</th>
+                            <th data-priority="3">姓名</th>
+                            <th data-priority="1">性别</th>
+                            <th data-priority="3">考生类别</th>
+                            <th data-priority="3">出生年月</th>
+                            <th data-priority="3">毕业学校</th>
+                            <!--th data-priority="1">个人A录入个数</th>
+                        <th data-priority="1">实际A个数</th>
+                        <th data-priority="1">考试院A个数</th-->
+                            <th data-priority="1">查看</th>
+                            <th data-priority="1">退回</th>
+                            <th data-priority="1">删除</th>
+                            <!-- <th data&#45;priority="1">导出</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <foreach name="iuser" item="vo">
+                            <tr id="{$vo['iname']}" >
+						 
+							   <th>{$vo['iid']}</th>
+                                <td>{$vo['iname']}</td>
+                                <td>{$vo['ixm']}</td>
+                                <td>{$vo['ixb']}</td>
+                                <td>{$vo['ilb']}</td>
+                                <td>{$vo['icssj']}</td>
+                                <td>{$vo['ibyzx']}</td>
+                                <!--td>{$vo['iahave']}</td>
+                            <td>{$vo['ilb']}</td>
+                            <td>{$vo['ilb']}</td-->
+                                <td><a class="btn btn-success btn-xs" target="_black" href="{:U('Home/User/ptinfo',array('iname'=>$vo['iname']))}" >查看</a></td>
+                                <td><gt name="vo['istat']" value="1" > <a id="tuihui" href="#" class="btn btn-warning btn-xs" >退回</a> </gt></td>
+                                <td> <a id="shanchu" href="#" class="btn btn-red btn-xs">删除</td>
+                                    <!-- <td><input class="cbr" type="checkbox"></td> -->
+                                </tr>
+                            </foreach>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- <div align="right"><input class="cbr" type="checkbox" onclick="checkAll(this)" >全选</div> -->
+                <!-- <div align="right" ><a href="{:U('Managers/dcxsxx')}" class="btn btn&#45;purple btn&#45;lg">导出全部</a></div> -->
+                <div align="right">
+
+                    <ul class="pagination pagination-sm">
+                        <!--li>
+                            <form class="navbar-left" role="search">
+                                <input id="searchuse" type="text" class="form-control" placeholder="" value="" >
+                            </form>
+                        </li-->
+                        <li>
+                            <a href="{:U('grxxgl',array('page'=> $page-1))}">
+                                <i class="fa-angle-left"></i>
+                            </a>
+                        </li>
+                        <for start="1" end="$pagenum+1">
+                            <if condition="$i eq $page">
+                                <li class="active">
+                                    <a href="{:U('grxxgl',array('page'=>$i))}" target="_self">{$i}</a>
+                                </li>
+                                <else />
+                                    <li >
+                                        <a href="{:U('grxxgl',array('page'=>$i))}" target="_self" >{$i}</a>
+                                    </li>
+                                </if>
+                            </for>
+                            <li>
+                                <a href="{:U('grxxgl',array('page'=>$page+1))}">
+                                    <i class="fa-angle-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="toast-container" style="display: none" class="toast-top-right toast-default" aria-live="polite" role="alert">
+                <div class="black toast-info"><button class="toast-close-button" role="button">×</button>
+                    <div class="toast-title">操作状态</div>
+                    <div id="toast-show-my" class="toast-message"></div>
+                </div>
+            </div>
+            <script src="__PUBLIC__/assets/js/bootstrap.min.js"></script>
+
+        </body>
+    </html>

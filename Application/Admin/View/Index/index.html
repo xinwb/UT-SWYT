@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Xenon Boostrap Admin Panel" />
+    <meta name="author" content="" />
+
+    <title>浙江农林大学三位一体报名后台系统</title>
+
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/400700.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/fonts/linecons/css/linecons.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/fonts/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-core.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-forms.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-components.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-skins.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/custom.css">
+
+    <script src="__PUBLIC__/assets/js/jquery-1.11.1.min.js"></script>
+</head>
+<body class="page-body">
+
+<div class="page-container">
+
+    <div class="main-content">
+
+        <!-- User Info, Notifications and Menu Bar -->
+        <nav class="navbar user-info-navbar" role="navigation">
+
+            <!-- Left links for user info navbar -->
+            <ul class="user-info-menu left-links list-inline list-unstyled">
+
+                <li class="hidden-sm hidden-xs">
+                    <div class="selected">
+
+                        <div class="title-env">
+                            <h3 class="title">三位一体综合报名&nbsp; <a href="{:U('login/index')}" class="btn btn-blue">退出</a></h3>
+                        </div>
+
+                    </div>
+                </li>
+
+            </ul>
+
+            <!-- Right links for user info navbar -->
+
+        </nav>
+
+        <script type="text/javascript">
+        </script>
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <ul class="nav nav-tabs nav-tabs-justified">
+                    <li class="active">
+                        <a href="#管理员管理-3" data-toggle="tab" onclick="setframeto('{:U('admingl')}')">
+                            <span class="visible-xs"><i class="fa-home"></i></span>
+                            <span class="hidden-xs">管理员管理</span>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="#管理员管理-3" data-toggle="tab" onclick="setframeto('{:U('grxxgl')}')">
+                            <span class="visible-xs"><i class="fa-home"></i></span>
+                            <span class="hidden-xs">个人信息管理</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#管理员管理-3" data-toggle="tab" onclick="setframeto('{:U('clshgl')}')">
+                            <span class="visible-xs"><i class="fa-user"></i></span>
+                            <span class="hidden-xs">材料审核管理</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#管理员管理-3" data-toggle="tab" onclick="setframeto('{:U('zjshgl')}')">
+                            <span class="visible-xs"><i class="fa-envelope-o"></i></span>
+                            <span class="hidden-xs">书面评审管理</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#管理员管理-3" data-toggle="tab" onclick="setframeto('{:U('zkzhgl')}')">
+                            <span class="visible-xs"><i class="fa-envelope-o"></i></span>
+                            <span class="hidden-xs">准考证号核管理</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#管理员管理-3" data-toggle="tab" onclick="setframeto('{:U('fsgl')}')">
+                            <span class="visible-xs"><i class="fa-cog"></i></span>
+                            <span class="hidden-xs">分数管理</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#管理员管理-3" data-toggle="tab"  onclick="setframeto('{:U('fsdlgl')}')">
+                            <span class="visible-xs"><i class="fa-bell-o"></i></span>
+                            <span class="hidden-xs">学生分签</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#管理员管理-3" data-toggle="tab" onclick="setframeto('{:U('agsgl')}')">
+                            <span class="visible-xs"><i class="fa-cog"></i></span>
+                            <span class="hidden-xs">A个数管理</span>
+                        </a>
+                    </li>
+                    <!-- <li> -->
+                    <!--     <a href="#管理员管理&#45;3" data&#45;toggle="tab"  onclick="setframeto('{:U('agsdlgl')}')"> -->
+                    <!--         <span class="visible&#45;xs"><i class="fa&#45;bell&#45;o"></i></span> -->
+                    <!--         <span class="hidden&#45;xs">A个数导入管理</span> -->
+                    <!--     </a> -->
+                    <!-- </li> -->
+                    <!--  -->
+                    <li>
+                        <a href="#管理员管理-3" data-toggle="tab"  onclick="setframeto('{:U('majorgl')}')">
+                            <span class="visible-xs"><i class="fa-bell-o"></i></span>
+                            <span class="hidden-xs">专业大类管理</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#管理员管理-3" data-toggle="tab"  onclick="setframeto('{:U('tongzhigl')}')">
+                            <span class="visible-xs"><i class="fa-bell-o"></i></span>
+                            <span class="hidden-xs">通知信息管理</span>
+                        </a>
+                    </li>
+
+                </ul>
+
+
+
+
+                <!--内容-->
+
+
+                <div class="tab-content">
+                    <div  class="tab-pane active" id="管理员管理-3">
+
+                        <script>
+                            // 兼容性代码
+                            function autoHeight(iframe) {
+                                if (iframe) {
+                                    var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+                                    if (iframeWin.document.body) {
+                                        iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+                                        iframe.width = iframeWin.document.documentElement.scrollWidth || iframeWin.document.body.scrollWidth;
+                                    }
+                                }
+                            }
+                            window.onresize = function(){
+                                var temp = document.getElementById("iframe");
+                                temp.width="100%";
+
+                                autoHeight(temp);
+                            }
+
+                            window.onload = function() {
+                                autoHeight(document.getElementById('iframe'));
+                            }
+
+                            function setframeto(url){
+                                var temp = document.getElementById("iframe");
+                                temp.src=url;
+                                temp.width="100%";
+
+                                autoHeight(temp);
+                            }
+
+                        </script>
+
+
+
+
+                        <iframe width="100%" height="100%" id="iframe" seamless="seamless" frameborder="0" scrolling="no" style="border:0px;" src="{:U('admingl')}" ></iframe>
+
+                    </div>
+
+
+
+
+
+
+                    <div class="tab-pane" id="个人信息管理-3">
+
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <!--<h3 class="panel-title">Adjustable Responsive Table</h3>-->
+                                <div class="panel-options">
+                                    <a href="#" data-toggle="reload">
+                                        <i class="fa-rotate-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <!--开始-->
+                            <!--开始完-->
+                            <div class="panel-body">
+                                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                                    <ul class="nav navbar-nav">
+                                        <li class="active">
+                                            <a href="#">关键词</a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">按姓名查找<b class="caret"></b></a>
+                                            <ul class="dropdown-menu dropdown-primary">
+                                                <li>
+                                                    <a href="#">按姓名查找</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">按身份证号查找</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <form class="navbar-form navbar-left" role="search">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="">
+
+                                            <button type="submit" class="btn btn-white">搜索</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="table-responsive" data-pattern="priority-columns" data-add-focus-btn="true" data-add-display-all-btn="true" data-sticky-table-header="true" data-focus-btn-icon="fa-asterisk">
+                                    <table class="table table-small-font table-bordered table-striped" cellspacing="0">
+                                        <thead>
+                                        <tr>
+                                            <th data-priority="6">报名序号</th>
+                                            <th data-priority="6">身份证号</th>
+                                            <th data-priority="3">姓名</th>
+                                            <th data-priority="1">性别</th>
+                                            <th data-priority="3">考生类别</th>
+                                            <th data-priority="3">出生年月</th>
+                                            <th data-priority="3">毕业学校</th>
+                                            <th data-priority="1">个人A录入个数</th>
+                                            <th data-priority="1">实际A个数</th>
+                                            <th data-priority="1">考试院A个数</th>
+                                            <th data-priority="1">查看</th>
+                                            <th data-priority="1">退回</th>
+                                            <th data-priority="1">删除</th>
+                                            <th data-priority="1">导出</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th>01</th>
+                                            <td>330225~~~~~</td>
+                                            <td>张三丰</td>
+                                            <td>男</td>
+                                            <td>应届</td>
+                                            <td>09/30</td>
+                                            <td>~~高中</td>
+                                            <td>10</td>
+                                            <td>10</td>
+                                            <td>8</td>
+                                            <td>查看</td>
+                                            <td>退回</td>
+                                            <td>删除</td>
+                                            <td><input class="cbr" type="checkbox"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>02</th>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><input class="cbr" type="checkbox"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <script type="text/javascript">
+                                    // This JavaScript Will Replace Checkboxes in dropdown toggles
+                                    jQuery(document).ready(function($)
+                                    {
+                                        setTimeout(function()
+                                        {
+                                            $(".checkbox-row input").addClass('cbr');
+                                            cbr_replace();
+                                        }, 0);
+                                    });
+                                </script>
+
+                                <div align="right"><input class="cbr" type="checkbox">批量生成</div>
+                                <div align="right">
+
+                                    <ul class="pagination pagination-sm">
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa-angle-left"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">1</a>
+                                        </li>
+                                        <li class="active">
+                                            <a href="#">2</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">3</a>
+                                        </li>
+                                        <li class="disabled">
+                                            <a href="#">4</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">5</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">6</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa-angle-right"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="tab-pane" id="材料审核管理-3">
+
+
+
+                        <div class="panel panel-default">
+
+
+                            <div class="panel-heading">
+                                <!--<h3 class="panel-title">Adjustable Responsive Table</h3>-->
+
+                                <div class="panel-options">
+
+                                    <a href="#" data-toggle="reload">
+                                        <i class="fa-rotate-right"></i>
+                                    </a>
+
+
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <!--开始-->
+                                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                                    <ul class="nav navbar-nav">
+                                        <li class="active">
+                                            <a href="#">关键词</a>
+                                        </li>
+
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">按姓名查找<b class="caret"></b></a>
+                                            <ul class="dropdown-menu dropdown-primary">
+                                                <li>
+                                                    <a href="#">按姓名查找</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">按身份证号查找</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <form class="navbar-form navbar-left" role="search">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="">
+
+                                            <button type="submit" class="btn btn-white">搜索</button>
+
+                                        </div>
+
+                                    </form>
+
+                                </div>
+
+
+                                <!--开始完-->
+
+
+                                <table class="table table-small-font table-bordered table-striped" cellspacing="0">
+                                    <thead>
+                                    <tr>
+                                        <th data-priority="6">报名序号</th>
+                                        <th data-priority="6">身份证号</th>
+                                        <th data-priority="3">姓名</th>
+                                        <th data-priority="1">实际A个数</th>
+                                        <th data-priority="1">考试院A个数</th>
+                                        <th data-priority="1">查看</th>
+                                        <th data-priority="6">EMS单号</th>
+                                        <th data-priority="1">状态</th>
+                                        <th data-priority="1">审核</th>
+                                        <th data-priority="12">拒绝原因</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th>01</th>
+                                        <td>330225~~~~~</td>
+                                        <td>张三丰</td>
+                                        <td>5</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>通过&nbsp 不通过</td>
+                                        <td><div class="col-sm-10">
+                                            <input class="form-control" id="field-1" type="text" placeholder="仅限50字">
+                                        </div></td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+
+
+
+                                <div align="right"> <button class="btn btn-secondary btn-single">保存</button></div>
+                                <div align="right">
+
+                                    <ul class="pagination pagination-sm">
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa-angle-left"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">1</a>
+                                        </li>
+                                        <li class="active">
+                                            <a href="#">2</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">3</a>
+                                        </li>
+                                        <li class="disabled">
+                                            <a href="#">4</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">5</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">6</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa-angle-right"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="tab-pane" id="专家审核管理-3">
+
+
+
+                        <div class="panel panel-default">
+
+
+                            <div class="panel-heading">
+                                <!--<h3 class="panel-title">Adjustable Responsive Table</h3>-->
+
+                                <div class="panel-options">
+
+                                    <a href="#" data-toggle="reload">
+                                        <i class="fa-rotate-right"></i>
+                                    </a>
+
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <!--开始-->
+                                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                                    <ul class="nav navbar-nav">
+                                        <li class="active">
+                                            <a href="#">关键词</a>
+                                        </li>
+
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">按姓名查找<b class="caret"></b></a>
+                                            <ul class="dropdown-menu dropdown-primary">
+                                                <li>
+                                                    <a href="#">按姓名查找</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">按身份证号查找</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <form class="navbar-form navbar-left" role="search">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="">
+                                        </div>
+                                        <button type="submit" class="btn btn-white">搜索</button>
+                                    </form>
+
+                                </div>
+
+
+                                <!--开始完-->
+                                <div class="table-responsive" data-pattern="priority-columns" data-add-focus-btn="true" data-add-display-all-btn="true" data-sticky-table-header="true" data-focus-btn-icon="fa-asterisk">
+
+
+                                    <table class="table table-small-font table-bordered table-striped" cellspacing="0">
+                                        <thead>
+                                        <tr>
+                                            <th data-priority="6">报名序号</th>
+                                            <th data-priority="6">身份证号</th>
+                                            <th data-priority="3">姓名</th>
+                                            <th data-priority="6">EMS单号</th>
+                                            <th data-priority="1">材料审核</th>
+                                            <th data-priority="1">专家审核</th>
+                                            <th data-priority="12">拒绝原因</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th>01</th>
+                                            <td>330225~~~~~</td>
+                                            <td>张三丰</td>
+                                            <td>男</td>
+                                            <td>227704883224</td>
+                                            <td></td>
+
+                                            <td><div class="col-sm-10">
+                                                <input class="form-control" id="field-1" type="text" placeholder="仅限50字">
+                                            </div></td>
+                                        </tr>
+
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                                <script type="text/javascript">
+                                    // This JavaScript Will Replace Checkboxes in dropdown toggles
+                                    jQuery(document).ready(function($)
+                                    {
+                                        setTimeout(function()
+                                        {
+                                            $(".checkbox-row input").addClass('cbr');
+                                            cbr_replace();
+                                        }, 0);
+                                    });
+                                </script>
+                                <div align="right"> <button class="btn btn-secondary btn-single">保存</button></div>
+                                <div align="right">
+
+                                    <ul class="pagination pagination-sm">
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa-angle-left"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">1</a>
+                                        </li>
+                                        <li class="active">
+                                            <a href="#">2</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">3</a>
+                                        </li>
+                                        <li class="disabled">
+                                            <a href="#">4</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">5</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">6</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa-angle-right"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+                    <div class="tab-pane" id="准考证号管理-3">
+
+
+
+                        <div class="panel panel-default">
+
+
+                            <div class="panel-heading">
+                                <!--<h3 class="panel-title">Adjustable Responsive Table</h3>-->
+
+                                <div class="panel-options">
+
+                                    <a href="#" data-toggle="reload">
+                                        <i class="fa-rotate-right"></i>
+                                    </a>
+
+
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <!--开始-->
+                                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                                    <ul class="nav navbar-nav">
+                                        <li class="active">
+                                            <a href="#">关键词</a>
+                                        </li>
+
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">按姓名查找<b class="caret"></b></a>
+                                            <ul class="dropdown-menu dropdown-primary">
+                                                <li>
+                                                    <a href="#">按姓名查找</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">按身份证号查找</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <form class="navbar-form navbar-left" role="search">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="">
+                                        </div>
+                                        <button type="submit" class="btn btn-white">搜索</button>
+                                    </form>
+
+                                </div>
+
+
+                                <!--开始完-->
+
+                                <div class="table-responsive" data-pattern="priority-columns" data-add-focus-btn="true" data-add-display-all-btn="true" data-sticky-table-header="true" data-focus-btn-icon="fa-asterisk">
+
+
+                                    <table class="table table-small-font table-bordered table-striped" cellspacing="0">
+                                        <thead>
+                                        <tr>
+                                            <th data-priority="6">准考证号</th>
+                                            <th data-priority="6">身份证号</th>
+                                            <th data-priority="3">姓名</th>
+                                            <th data-priority="6">性别</th>
+                                            <th data-priority="1">考生类别</th>
+                                            <th data-priority="1">出生年月</th>
+                                            <th data-priority="6">会考证号</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th>1111111</th>
+                                            <td>330225~~~~~</td>
+                                            <td>张三丰</td>
+                                            <td>男</td>
+                                            <td>应届</td>
+                                            <td>09/22</td>
+                                            <td>2222222222222</td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                                <script type="text/javascript">
+                                    // This JavaScript Will Replace Checkboxes in dropdown toggles
+                                    jQuery(document).ready(function($)
+                                    {
+                                        setTimeout(function()
+                                        {
+                                            $(".checkbox-row input").addClass('cbr');
+                                            cbr_replace();
+                                        }, 0);
+                                    });
+                                </script>
+
+
+                                <div class="form-group" align="right">
+                                    <button type="submit" class="btn btn-success">保存</button>
+                                    <button type="reset" class="btn btn-white">批量导出</button>
+                                </div>
+
+                                <div align="right">
+
+                                    <ul class="pagination pagination-sm">
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa-angle-left"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">1</a>
+                                        </li>
+                                        <li class="active">
+                                            <a href="#">2</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">3</a>
+                                        </li>
+                                        <li class="disabled">
+                                            <a href="#">4</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">5</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">6</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa-angle-right"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+                    <div class="tab-pane" id="分数管理-3">
+
+
+
+                        <div class="panel panel-default">
+
+
+                            <div class="panel-heading">
+                                <!--<h3 class="panel-title">Adjustable Responsive Table</h3>-->
+
+                                <div class="panel-options">
+
+
+                                    <a href="#" data-toggle="reload">
+                                        <i class="fa-rotate-right"></i>
+                                    </a>
+
+
+                                </div>
+
+                            </div>
+
+                            <div class="panel-body">
+
+
+                                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                                    <ul class="nav navbar-nav">
+                                        <li class="active">
+                                            <a href="#">关键词</a>
+                                        </li>
+
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">按姓名查找<b class="caret"></b></a>
+                                            <ul class="dropdown-menu dropdown-primary">
+                                                <li>
+                                                    <a href="#">按姓名查找</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">按身份证号查找</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <form class="navbar-form navbar-left" role="search">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="">
+                                        </div>
+                                        <button type="submit" class="btn btn-white">搜索</button>
+                                    </form>
+
+                                </div>
+
+                                <div class="table-responsive" data-pattern="priority-columns" data-add-focus-btn="true" data-add-display-all-btn="true" data-sticky-table-header="true" data-focus-btn-icon="fa-asterisk">
+
+                                    <table class="table table-small-font table-bordered table-striped" cellspacing="0">
+                                        <thead>
+                                        <tr>
+                                            <th data-priority="6">准考证号</th>
+                                            <th data-priority="6">身份证号</th>
+                                            <th data-priority="3">姓名</th>
+                                            <th data-priority="6">性别</th>
+                                            <th data-priority="1">会考证号</th>
+                                            <th data-priority="1">综合素质成绩</th>
+                                            <th data-priority="6">排名</th>
+                                            <th data-priority="1">是否合格</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th>1111111</th>
+                                            <td>330225~~~~~</td>
+                                            <td>张三丰</td>
+                                            <td>男</td>
+                                            <td>0123456789</td>
+                                            <td>A</td>
+                                            <td>222</td>
+                                            <td>合格</td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+
+
+
+
+
+
+
+                                    <div align="right"> <button class="btn btn-secondary btn-single">保存</button></div>
+                                    <div align="right">
+
+                                        <ul class="pagination pagination-sm">
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa-angle-left"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">1</a>
+                                            </li>
+                                            <li class="active">
+                                                <a href="#">2</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">3</a>
+                                            </li>
+                                            <li class="disabled">
+                                                <a href="#">4</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">5</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">6</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa-angle-right"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="tab-pane" id="分数导入管理-3">
+
+
+                            <div class="panel-body">
+                                <!--文件-->
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+
+                                        <div class="panel-options">
+                                            <a href="#" data-toggle="reload">
+                                                <i class="fa-rotate-right"></i>
+                                            </a>
+                                        </div>
+                                        <h3 class="panel-title">分数导入</h3>
+                                    </div>
+
+                                    <div class="panel-body">
+                                        <form role="form" class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label" for="field-4"></label>
+                                                <div class="col-sm-10">
+                                                    <input type="file" class="form-control" id="field-4">
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+
+
+                                <form class="form-inline" role="form">
+
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-success">上传</button>
+                                        <button type="reset" class="btn btn-white">提交</button>
+                                    </div>
+
+
+                                </form>
+
+
+                                <!--文件完-->
+                                <div align="center">
+                                    <a href="www.baidu.com" ><span style=" color:#090"><strong>点此处下载考生分数模板</strong></span></a>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="tab-pane" id="A个数管理-3">
+
+
+                            <div class="panel panel-default">
+
+                                <div class="panel-heading">
+                                    <!--开始-->
+
+
+                                    <div class="panel-options">
+                                        <a href="#" data-toggle="reload">
+                                            <i class="fa-rotate-right"></i>
+                                        </a>
+                                    </div>
+
+                                </div>
+                                <div class="panel-body">
+
+
+                                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                                        <ul class="nav navbar-nav">
+                                            <li class="active">
+                                                <a href="#">关键词</a>
+                                            </li>
+
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">按姓名查找<b class="caret"></b></a>
+                                                <ul class="dropdown-menu dropdown-primary">
+                                                    <li>
+                                                        <a href="#">按姓名查找</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">按身份证号查找</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                        <form class="navbar-form navbar-left" role="search">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="">
+                                            </div>
+                                            <button type="submit" class="btn btn-white">搜索</button>
+                                        </form>
+
+                                    </div>
+
+
+                                    <div class="table-responsive" data-pattern="priority-columns" data-add-focus-btn="true" data-add-display-all-btn="true" data-sticky-table-header="true" data-focus-btn-icon="fa-asterisk">
+
+                                        <table class="table table-small-font table-bordered table-striped" cellspacing="0">
+                                            <thead>
+                                            <tr>
+                                                <th data-priority="6">身份证号</th>
+                                                <th data-priority="3">姓名</th>
+                                                <th data-priority="6">性别</th>
+                                                <th data-priority="1">个人录入A个数</th>
+                                                <th data-priority="1">实际A个数</th>
+                                                <th data-priority="1">考院A个数</th>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            <tr>
+                                                <td>330225~~</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td><input class="form-control" type="text" placeholder=""></td>
+                                                <td><input class="form-control" type="text" placeholder=""></td>
+
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+
+
+
+
+                                    <div align="right"> <button class="btn btn-secondary btn-single">保存</button></div>
+                                    <div align="right">
+
+                                        <ul class="pagination pagination-sm">
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa-angle-left"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">1</a>
+                                            </li>
+                                            <li class="active">
+                                                <a href="#">2</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">3</a>
+                                            </li>
+                                            <li class="disabled">
+                                                <a href="#">4</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">5</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">6</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa-angle-right"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="tab-pane" id="A个数导入管理-3">
+
+
+
+
+                            <div class="panel-body">
+                                <div class="panel-body">
+                                    <!--文件-->
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">A个数导入</h3>
+                                            <div class="panel-options">
+                                                <a href="#" data-toggle="reload">
+                                                    <i class="fa-rotate-right"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="panel-body">
+
+                                            <form role="form" class="form-horizontal">
+
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label" for="field-4"></label>
+
+                                                    <div style="padding:10px;10px;10px;10px;10px">
+                                                        <input type="file" class="form-control" id="field-4">
+                                                    </div>
+                                                </div>
+
+                                            </form>
+
+                                        </div>
+                                    </div>
+
+
+                                    <form class="form-inline" role="form">
+
+
+
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-success">上传</button>
+                                            <button type="reset" class="btn btn-white">提交</button>
+                                        </div>
+
+
+                                    </form>
+                                </div>
+
+
+
+
+                                <div align="center">
+                                    <a href="www.baidu.com" ><span style="color:#090"><strong>点此处下载考生分数模板</strong></span></a>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+
+
+
+            <!-- Main Footer -->
+            <!-- Choose between footer styles: "footer-type-1" or "footer-type-2" -->
+            <!-- Add class "sticky" to  always stick the footer to the end of page (if page contents is small) -->
+            <!-- Or class "fixed" to  always fix the footer to the end of page -->
+            <footer class="main-footer sticky footer-type-1">
+
+                <div class="footer-inner">
+
+                    <!-- Add your copyright text here -->
+                    <div class="footer-text">
+                        ©&nbsp; 浙江农林大学招生办
+
+                        <a href="http://www.cssmoban.com/" target="_blank" title="模板之家"></a> - 版权所有
+                    </div>
+
+
+
+                    <!-- Go to Top Link, just add rel="go-top" to any link to add this functionality -->
+                    <div class="go-up">
+
+                        <a href="#" rel="go-top">
+                            <i class="fa-angle-up"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </footer>
+        </div>
+    </div>
+    <!-- Bottom Scripts -->
+    <script src="__PUBLIC__/assets/js/bootstrap.min.js"></script>
+    <script src="__PUBLIC__/assets/js/TweenMax.min.js"></script>
+    <script src="__PUBLIC__/assets/js/resizeable.js"></script>
+    <script src="__PUBLIC__/assets/js/joinable.js"></script>
+    <script src="__PUBLIC__/assets/js/xenon-api.js"></script>
+    <script src="__PUBLIC__/assets/js/xenon-toggles.js"></script>
+
+
+    <!-- JavaScripts initializations and stuff -->
+    <script src="__PUBLIC__/assets/js/xenon-custom.js"></script>
+</div>
+
+</body>
+</html>

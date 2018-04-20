@@ -1,0 +1,624 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="Xenon Boostrap Admin Panel" />
+        <meta name="author" content="" />
+        <title>浙江农林大学三位一体报名系统</title>
+        <link rel="stylesheet" href="__PUBLIC__/assets/css/400700.css">
+        <link rel="stylesheet" href="__PUBLIC__/assets/css/fonts/linecons/css/linecons.css">
+        <link rel="stylesheet" href="__PUBLIC__/assets/css/fonts/fontawesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="__PUBLIC__/assets/css/bootstrap.css">
+        <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-core.css">
+        <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-forms.css">
+        <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-components.css">
+        <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-skins.css">
+        <link rel="stylesheet" href="__PUBLIC__/assets/css/custom.css">
+        <!--<link type="text/css" href="__PUBLIC__/mycss/iF.step.css" rel="stylesheet">-->
+        <link rel="stylesheet" href="__PUBLIC__/mycss/control.css" type="text/css" />
+        <script src="__PUBLIC__/myjs/jquery-1.8.3.min.js"></script>
+        <!--<script src="__PUBLIC__/assets/js/jquery-1.11.1.min.js"></script>-->
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <load href="__PUBLIC__/Js/Base.js"/>
+        <load href="__PUBLIC__/Js/prototype.js"/>
+        <load href="__PUBLIC__/Js/mootools.js"/>
+        <load href="__PUBLIC__/Js/Ajax/ThinkAjax.js"/>
+        <script type="text/javascript" src="__PUBLIC__/myjs/jquery-html5Validate.js"></script>
+        <script type="text/javascript" >
+
+            function $ebid(id) {
+                return document.getElementById(id);
+            }
+// function baoming(){
+//     var id = document.getElementsByName('icmajor');
+//     var temp = new Array();
+//     for(var i = 0;i<id.length;i++){
+//         if(id[i].checked){
+//             temp.push(id[i].value);
+//         }
+//     }
+//     if(temp.length==0){
+//         hideshow("请选择意向专业！");
+//         return;
+//     }
+//     var str= temp.join(',');
+//     //alert(str);
+//     ThinkAjax.send('{:U('csmajor')}','ajax=1&str='+str,completebm,'');
+//
+// }
+
+function baoming2(){
+
+    var x=document.getElementById("csmjshow");
+
+    var temp = x.innerHTML;
+    var y=document.getElementById("csmjshowid");
+    var str = y.innerHTML;
+    temp = new String(temp);
+    // alert(temp);
+    if(str != "0"){
+        ThinkAjax.send('{:U('csmajor')}','ajax=1&str='+str,completebm,'');
+        //hideshow(str);
+    }else{
+        hideshow("请选择意向专业！");
+    }
+
+}
+
+
+function completebm(data,status){
+    // alert(data['stats']);
+
+    if(status != 0){
+        var temp = data['stats'];
+        setsetstat(temp);
+        //var iobj = document.getElementById('baomingqueren');
+        //iobj.setAttribute("disabled",'true');
+        var iobj = document.getElementById('baomingqueren2');
+        iobj.setAttribute("disabled",'true');
+        jQuery("#baomingqueren2").removeClass("btn-success");
+
+        jQuery("#baomingqueren2").addClass("btn-primary");
+        alert('报名成功!');
+    }else{
+        alert(data['info']);
+
+
+    }
+}
+
+
+
+
+
+function csmjbya(name,id){
+
+    var heed = "mjr";
+     var temp = heed+"1";
+
+     document.getElementById("mjr1").classList.remove("btn-red");
+     document.getElementById(temp).classList.add("btn-primary");
+    var temp = heed+"2";
+    document.getElementById(temp).classList.remove("btn-red");
+    document.getElementById(temp).classList.add("btn-primary");
+    var temp = heed+"3";
+    document.getElementById(temp).classList.remove("btn-red");
+    document.getElementById(temp).classList.add("btn-primary");
+    //var temp = heed+"4";
+    //document.getElementById(temp).classList.remove("btn-red");
+    //document.getElementById(temp).classList.add("btn-primary");
+    var temp = heed+id;
+    document.getElementById(temp).classList.remove("btn-primary");
+    document.getElementById(temp).classList.add("btn-red");
+
+
+    var x=document.getElementById("csmjshow");
+    var y=document.getElementById("csmjshowid");
+    x.innerHTML=name;
+    y.innerHTML=id;
+
+}
+
+var chouqianhanve = 3000;
+var time;
+var timess = 0;
+function begincqqh(){
+
+    var iobj = document.getElementById('cqqurrenkaishi');
+    iobj.setAttribute("disabled",'true');
+    chouqianaction();
+}
+
+function chouqianaction(){
+
+    timess++;
+    if(timess > 500){
+        chouqianend();
+        return;
+    }
+    var index = Math.floor(Math.random()*10000 % chouqianhanve);
+    document.getElementById("cqqhxs").innerHTML=index;
+    time = window.setTimeout(chouqianaction,4);
+}
+
+function chouqianend(){
+
+    window.clearTimeout(time);
+    document.getElementById("cqqhxs").innerHTML='{$uinfo['icqqh']}';
+
+    var str = 'haha';
+    ThinkAjax.send('{:U('chouqianuse')}','ajax=1&str='+str,completecq,'');
+}
+function chouqian(){
+    begincqqh();
+
+}
+
+
+
+function completecq(data,status){
+
+    var x=document.getElementById("cqqhxs");
+    if(status != 0){
+        x.innerHTML=data;
+
+        var iobj = document.getElementById('cqqurren');
+        iobj.setAttribute("disabled",'true');
+        xianshireload();
+    }
+}
+
+
+
+// function hideshow(info){
+//     codebasefuns(info);
+//     setTimeout("codefans()",2000);
+//
+// }
+function codebasefuns(info){
+
+    var box=document.getElementById("toast-container");
+    var boxshowmy=document.getElementById("toast-show-my");
+    boxshowmy.innerHTML=info;
+    box.style.display="";
+}
+function codefans(){
+    var box=document.getElementById("toast-container");
+    box.style.display="none";
+}
+
+
+function changet(name,value)
+{
+    var strid = name+value;
+    var temp = name+"A";
+    document.getElementById(temp).classList.remove("cbr-checked");
+    temp = name+"B";
+    document.getElementById(temp).classList.remove("cbr-checked");
+    temp = name+"C";
+    document.getElementById(temp).classList.remove("cbr-checked");
+    temp = name+"D";
+    document.getElementById(temp).classList.remove("cbr-checked");
+    temp = name+"E";
+    document.getElementById(temp).classList.remove("cbr-checked");
+    temp = name+"无";
+    document.getElementById(temp).classList.remove("cbr-checked");
+    document.getElementById(strid).classList.add("cbr-checked");
+}
+
+
+function savehuikao(){
+    for(var i = 0 ;i < document.huikao.elements.length-5;i++){
+        if(document.huikao.elements[i].value==""){
+            hideshow("请填写完整!");
+            document.huikao.elements[i].focus();
+            return false;
+        }
+    }
+    $temp = $ebid("hkcjxa");
+    $temp.click();
+
+    ThinkAjax.sendForm('huikao','{:U('jbxxhk')}',completehk,'');
+}
+function completehk(data,status){
+    var temp= 'A个数:';
+    codebasefuns(temp+data);
+
+    setTimeout("codefans()",2000);
+    var x=document.getElementById("Ahave");
+    if(status != 0){
+        x.innerHTML=data;
+    }
+}
+
+
+
+function emsqueren(){
+    $temp = $ebid("emsval");
+    $iems = $temp.value;
+    if($iems == ''){
+        alert("请填写ems单号");
+        return ;
+    }
+    ThinkAjax.send('{:U('wanshanems')}','ajax=1&str='+$iems,completewsems,'');
+}
+function completewsems(data,status){
+    hideshow(data);
+
+}
+
+
+// function complete(data,status){
+//     hideshow(data);
+// }
+function setsetstat(statsnow){
+    var x = $ebid("istatxxxs");
+    var y = $ebid("statnow");
+
+    var xshow;
+    var yshow = statsnow;
+
+
+    switch(yshow){
+
+    case 0:
+        xshow='完善信息未完成';
+        break;
+    case 1:
+        xshow='报名未完成';
+        break;
+    case 2:
+        xshow='材料审查未通过';
+        break;
+    case 3:
+        xshow='等待专家审查';
+        break;
+    case 4:
+        xshow='专家审查未通过';
+        break;
+    case 5:
+        if($iuser['iwecq'] == ''){
+
+            xshow='请抽签';
+        }else {
+            xshow='可以打印准考证';
+        }
+        break;
+
+    }
+
+    xianshireload();
+    x.innerHTML = xshow;
+    y.innerHTML = yshow;
+
+}
+function xianshireload(){
+    var temp = $ebid("xianshi");
+    temp.src='{:U('xianshi')}';
+
+}
+function whclick(usea){
+
+    var syscq = {$systeminfo['scqkf']};
+    usea.dataset.toggle="tab";
+    var info;
+    var status = 0;
+    var istat = $ebid("statnow").innerHTML;
+    var useid = usea.id;
+    switch(useid){
+    case 'kebm':
+        if(istat < 1)
+        {
+            info = '请先完善信息';
+
+            status = 1;
+        }
+        break;
+    case 'kesc':
+        if(istat < 3)
+        {
+            info = '请先报名';
+
+            status = 1;
+            if(istat == 2){
+                status = 0;
+                info = '材料审查未通过';
+            }
+        }
+        break;
+    case 'kejf': 
+        info = '等待审核';
+        if(istat < 6){
+            status = 1;
+            if(istat <= 1){
+                info = '请完成此前步骤';
+            }
+            else if(istat == 2){
+                info = '材料审查未通过';
+            }
+
+            else if(istat == 4){
+                info = '书面评审未通过';
+            }
+            else if(istat == 3){
+                info = '等待审核';
+            }
+        }
+        break;
+    case 'kecq':
+
+        if(istat <= 5 ){
+
+            info= '请等待审核通过后抽签';
+            status = 1;
+        }else if(istat == 6){
+
+            info= '请先缴费';
+            status = 1;
+        }else{
+            if(syscq == 0){
+                info= '等待抽签系统开放';
+                status = 1;
+            }
+
+        }
+        break;
+    default:
+        break;
+    }
+    if(status){
+        usea.dataset.toggle="tabTT";
+        hideshow(info);
+    }else{
+        // xianshireload();
+    }
+
+}
+
+
+// 兼容性代码
+function autoHeight(iframe) {
+    if (iframe) {
+        var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+        if (iframeWin.document.body) {
+            iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+            iframe.width = iframeWin.document.documentElement.scrollWidth || iframeWin.document.body.scrollWidth;
+        }
+    }
+}
+
+function hiderr(){
+    // alert("fdgsdg");
+    var temp = $ebid('hiderr');
+    temp.innerHTML = '';
+}
+
+function  hideshow(info){
+    jQuery(".errors-container").html('<div class="alert alert-danger">\
+        <button type="button" class="close" data-dismiss="alert">\
+            <span aria-hidden="true">&times;</span>\
+            <span class="sr-only">Close</span>\
+            </button>\
+        ' + info + '\
+            </div>');
+        jQuery(".errors-container .alert").hide().slideDown();
+        setTimeout(hiderr,1000);
+    }
+
+
+    function nomidj(name){
+        jQuery(name).click(); 
+
+    }
+
+        </script>
+    </head>
+
+    <div class="modal fade" id="myModaluse" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <!--iframe width="100%" height="100%" id="iframesome" seamless="seamless" frameborder="0" scrolling="no" style="border:0px;" src="{:U('zyupload')}" ></iframe-->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+    <body class="page-body">
+        <div class="page-container">
+            <div class="sidebar-menu toggle-others fixed collapsed">
+                <div class="sidebar-menu-inner">
+                    <header class="logo-env">
+                        <!-- logo -->
+                        <div class="logo">
+                            <a href="#" class="logo-expanded">
+                                <img src="__PUBLIC__/images/logo.png" width="75px" height="75px">
+                            </a>
+                            <a href="#" class="logo-collapsed">
+
+                                <img src="__PUBLIC__/images/logo.png" width="75px" height="75px" >
+                            </a>
+                        </div>
+                        <!-- This will toggle the mobile menu and will be visible only on mobile devices -->
+                        <div class="mobile-menu-toggle visible-xs">
+                            <a href="#" data-toggle="mobile-menu">
+                                <i class="fa-home" class=""></i>
+                            </a>
+                        </div>
+                    </header>
+                    <!--左边菜单栏-->
+                    <ul id="main-menu" class="main-menu">
+                        <li>
+
+                            <a href="#" id="hyxxuse" onclick="nomidj('#hyxx')" >
+                                <i class="fa-home" style=""></i>
+                                <span class="title">报名首页</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" id="bmjduse"  onclick="nomidj('#kebm')">
+                                <i class="linecons-star"></i>
+                                <span class="title">三位一体报名</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{:U('login/index')}">
+                                <i class="fa fa-power-off"></i>
+                                <span class="title">退出系统</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- 左边菜单栏结束-->
+                </div>
+            </div>
+            <div class="main-content">
+                <!-- User Info, Notifications and Menu Bar -->
+
+
+
+                <div class="page-title">
+
+                    <span class="line" style="display:none;" >
+                        <strong id="istatxxxs" >{$uinfostatxs}</strong>
+                        <p id="statnow" style="display: none">{$uinfo['istat']}</p>
+                    </span>
+                    <div class="title-env">
+                        <h1 class="title">三位一体综合报名系统</h1>
+                        <!-- <p class="description">浙江农林大学网上报名流程</p> -->
+                    </div>
+
+                    <div class="breadcrumb-env">
+
+                        <ol class="breadcrumb bc-1">
+
+                            <!-- <ul class="user&#45;info&#45;menu right&#45;links list&#45;inline list&#45;unstyled"> -->
+                                <li class="dropdown user-profile">
+                                    <a href="#" data-toggle="dropdown-menu">
+                                        <img src="__PUBLIC__/usepic/{$uinfo['ipic']}" alt="user-image" class="img-circle img-inline userpic-32" width="50" />
+                                        <span>
+                                            {$uinfo['ixm']}
+                                            <!--i class="fa-angle-down"></i-->
+                                        </span>
+                                    </a>
+                                    <!--右上角-->
+                                    <ul class="dropdown-menu user-profile-menu list-unstyled">
+                                        <li class="last">
+                                            <a href="#">
+                                                <i class="fa-lock"></i>
+                                                退出登录
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <!--右上角-->
+                                </li>
+                                <!-- </ul> -->
+
+
+                            <li>
+                                <a href="#" onclick="erroruse()" ><i class="fa-home"></i>主页</a>
+                            </li>
+                            <li>
+
+                                <a href="#">报名首页</a>
+                            </li>
+                            <li class="active">
+
+                                <strong>报名进度</strong>
+                            </li>
+                        </ol>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="row">
+
+                  
+                        <!--导航开始-->
+
+
+                        <ul class="nav nav-tabs nav-tabs-justified">
+                            
+							 <li>
+                                <a id="kecq" href="#分数-3" onclick="whclick(this)" data-toggle="tab">
+                                    <span class="visible-xs"><i class="fa-bell-o"></i></span>
+                                    <span class="hidden-xs" style="color:#000;"><strong>分数查询</strong></span>
+                                    <!--p id="kecqp"style="color:red;font-size:6px;"></p-->
+                                </a>
+                            </li>
+                        </ul>
+                        <!--导航结束-->
+                        <div class="tab-content">
+
+							<div class="tab-pane active" id="分数-3">
+							     <div class="panel panel-default">
+								  <span class="super-large text-secondary" >分数查询</span><br/>
+                                                                                    <span class="super-large text-secondary" >类别号：{$alb[$uinfo['icmajor']]}</span>
+                                                                                    <div class="panel-body">
+                                                                                        <div class="form-group">
+
+                                                                                            <span class="super-large text-secondary" >分&nbsp;&nbsp;&nbsp;&nbsp;数：</span>
+                                                                                           
+                                                                                                <span id="cqqhxs"  class="super-large text-secondary" >{$uinfo['iscore']}</span>
+                                                                                               
+                                                                                            </div>
+																							 <div class="form-group">
+
+                                                                                            <span class="super-large text-secondary" >是否合格：</span>
+                                                                                        
+                                                                                                <span id="cqqhxs"  class="super-large text-secondary" >{$uinfo['iscohg']}</span>
+                                                                                               
+                                                                                            </div>
+                                                                                        </div>
+                                                                                       
+                                                                                    </div>
+                                
+                            </div>
+                    </div>
+																			
+													
+																			
+                                                                        </div>
+                                                                        <div id="toast-container" style="display: none" class="toast-top-right toast-default" aria-live="polite" role="alert">
+                                                                            <div class="black toast-info"><button class="toast-close-button" role="button">×</button>
+                                                                                <div class="toast-title">操作状态</div>
+                                                                                <div id="toast-show-my" class="toast-message"></div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <script src="__PUBLIC__/assets/js/bootstrap.min.js"></script>
+                                                                        <script src="__PUBLIC__/assets/js/TweenMax.min.js"></script>
+                                                                        <script src="__PUBLIC__/assets/js/resizeable.js"></script>
+                                                                        <script src="__PUBLIC__/assets/js/joinable.js"></script>
+                                                                        <script src="__PUBLIC__/assets/js/xenon-api.js"></script>
+                                                                        <script src="__PUBLIC__/assets/js/xenon-toggles.js"></script>
+                                                                        <!-- JavaScripts initializations and stuff -->
+                                                                        <script src="__PUBLIC__/assets/js/dropzone/dropzone.min.js"></script>
+
+                                                                        <script src="__PUBLIC__/assets/js/xenon-custom.js"></script>
+                                                                        <script>
+                                                                            jQuery(document).ready(function(){
+
+                                                                                var tabuse = '{$tabuse}';
+                                                                                jQuery(tabuse).click();
+
+                                                                            });
+
+                                                                        </script>
+
+                                                                    </body>
+                                                                </html>
+

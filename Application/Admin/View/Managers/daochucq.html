@@ -1,0 +1,40 @@
+<table border="1" >
+    <tr>
+        <th>身份证</th>
+		<th>报名序号</th>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>电子邮件</th>
+        <th>手机号</th>
+        <th>家庭电话</th>
+        <th>通信地址</th>
+        <th>邮编</th>
+        <th>毕业中学</th>
+        <th>中学联系人</th>
+        <th>联系人电话</th>
+        <th>中学电话</th>
+        <th>材料ems</th>
+        <th>大类选择</th>
+		<th>是否抽签</th>
+    </tr>
+    <volist name="u" id="vo">
+        <tr>
+            <td>&nbsp;{$vo['iname']}</td>
+			<td>{$imajor[$vo['icmajor']]}&nbsp;2018{:sprintf("%04d",$vo['iid'])}</td>
+            <td>&nbsp;{$vo['ixm']}</td>
+            <td>{$vo['ixb']}</td>
+            <td>{$vo['iemail']}</td>
+            <td>{$vo['imobile']}</td>
+            <td>{$vo['itel']}</td>
+            <td>{$vo['iaddr']}</td>
+            <td>{$vo['iybcode']}</td>
+            <td>{$vo['ibyzx']}</td>   
+            <td>{$vo['ibyteac']}</td>
+            <td>{$vo['ibytetel']}</td>
+            <td>{$vo['ibytel']}</td>
+            <td style="vnd.ms-excel.numberformat:@">{$vo['iems']}</td>
+            <td>{$imj[$vo['icmajor']]}</td>
+			<td style="vnd.ms-excel.numberformat:@">{$icqqk[$vo['iwecq']]}</td>
+        </tr>
+    </volist>
+</table>

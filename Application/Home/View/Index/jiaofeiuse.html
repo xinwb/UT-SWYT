@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html>
+<body>
+
+
+
+<form  id="form1" method="post" action="{$action}">
+    <input  type="hidden"  name="orderDate"  value="{$orderDate}"/>
+    <input  type="hidden"  name="orderNo"  value="{$orderNo}"/>
+    <input  type="hidden"  name="amount"  value="{$amount}"/>
+    <input  type="hidden"  name="xmpch"  value="{$xmpch}"/>
+    <input  type="hidden" name="return_url" value="{$return_url}"/>
+    <input  type="hidden" name="notify_url" value="{$notify_url}"/>
+    <input  type="hidden" name="sign" value="{$sign}"/>
+</form>
+<script> form1.submit();</script>
+
+
+</body>
+</html>

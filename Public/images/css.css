@@ -1,0 +1,27 @@
+HTML {
+	
+}
+BODY {
+	BACKGROUND-IMAGE: url(../images/body_bg.jpg); TEXT-ALIGN: center; MARGIN: 0px auto; WIDTH: 1004px; BACKGROUND-REPEAT: repeat; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-SIZE: 12px
+}
+#body_width {
+	TEXT-ALIGN: center; WIDTH: 1004px
+}
+#body_top_bg {
+	BACKGROUND-IMAGE: url(../images/nbuth_mid.jpg); WIDTH: 1004px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 253px
+}
+#body_mid_bg {
+	BACKGROUND-IMAGE: url(../images/mid_bg.jpg); BACKGROUND-REPEAT: repeat
+}
+#bottom_bg {
+	BACKGROUND-IMAGE: url(../images/bottom_bg.jpg); WIDTH: 1004px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 129px
+}
+.login_WH {
+	TEXT-ALIGN: left; LINE-HEIGHT: 30px; WIDTH: 406px; HEIGHT: 244px
+}
+.input {
+	BORDER-BOTTOM: #bbbbbb 1px solid; BORDER-LEFT: #bbbbbb 1px solid; PADDING-LEFT: 5px; WIDTH: 240px; FONT-FAMILY: Arial, Helvetica, sans-serif; LETTER-SPACING: 2px; HEIGHT: 20px; FONT-SIZE: 14px; BORDER-TOP: #bbbbbb 1px solid; FONT-WEIGHT: bold; BORDER-RIGHT: #bbbbbb 1px solid; PADDING-TOP: 5px
+}
+.enter {
+	BACKGROUND-IMAGE: url(../images/enter_bg.png); BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; WIDTH: 71px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 28px; BORDER-TOP: 0px; FONT-WEIGHT: bold; BORDER-RIGHT: 0px
+}

@@ -1,0 +1,240 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/400700.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/fonts/linecons/css/linecons.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/fonts/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-core.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-forms.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-components.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-skins.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/custom.css">
+
+    <script src="__PUBLIC__/assets/js/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+<include file="Index/topbaruse" />
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        大类修改
+                    </h4>
+                </div>
+                <div class="modal-body">
+
+
+                    <div class="form-group">
+                        <form id="xiuform">
+                            <label class="control-label">大类ID</label>
+
+                            <div class="input-group input-group-sm input-group-minimal">
+                                <span class="input-group-addon">
+                                    <i class="fa-sort-numeric-desc"></i>
+                                </span>
+                                <input id="xiu0" disabled type="text" class="form-control" data-mask="999" value="dfgsdfg" placeholder="Three Numbers">
+                            </div>
+
+                            <br>
+                            <label class="control-label">大类代码 </label>
+                            <div class="input-group input-group-sm input-group-minimal">
+                                <span class="input-group-addon">
+                                    <i class="fa-sort-numeric-asc"></i>
+                                </span>
+                                <input id="xiu1"  type="text" class="form-control" data-mask="decimal" value="" placeholder="Decimal">
+                            </div>
+
+                            <br>
+
+                            <label class="control-label">大类名称</label>
+
+                            <div class="input-group input-group-sm input-group-minimal">
+                                <span class="input-group-addon">
+                                    <i class="fa-sort-amount-desc"></i>
+                                </span>
+                                <input id="xiu2" type="text" class="form-control" data-mask="decimal" value="" placeholder="Decimal">
+                            </div>
+
+                            <br>
+                            <label class="control-label">大类描述</label>
+                            <div class="input-group input-group-sm input-group-minimal">
+                                <span class="input-group-addon">
+                                    <i class="fa-sort-amount-asc"></i>
+                                </span>
+                                <textarea id="xiu3" class="form-control autogrow" name="ibsjl"  value="" data-validate="minlength[10]" rows="5" placeholder="仅限250字" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 104px;"></textarea>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-blue" data-dismiss="modal">关闭
+                        </button>
+
+                        <a href="#" caozuo="tjupda" class="btn btn-blue" data-dismiss="modal">
+                            提交更改
+                        </a>
+
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+
+    <div class="panel panel-default">
+        <div class="col-md-15">
+            <div class="panel-heading">
+                <!--a id="btnfenfa" class="btn btn-blue btn-lg" href="#">分发签号</a-->
+                <div class="panel-options">
+                    <a href="__SELF__" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+                </div>
+            </div>
+            <script>
+
+               function hideshow(info){
+                   codebasefuns(info);
+                   setTimeout("codefans()",2000);
+
+               }
+               function codebasefuns(info){
+
+                var box=document.getElementById("toast-container");
+                var boxshowmy=document.getElementById("toast-show-my");
+                boxshowmy.innerHTML=info;
+                box.style.display="";
+            }
+            function codefans(){
+                var box=document.getElementById("toast-container");
+                box.style.display="none"; 
+
+                window.location.reload();
+            }
+
+
+            jQuery(document).ready(function($){
+                $("a").click(function(){
+
+                    var classuse = this.getAttribute("caozuo");
+                    var urluse = '{:U('glmajor')}';
+                    var str;
+                    var useid
+
+                    if(classuse=='')
+                        return;
+
+                    if(classuse != 'tjupda'){
+                        var demo = this.closest("tr");
+                         useid = demo.id;
+                        
+                        for(var i =0 ;i<demo.cells.length-1;i++){
+
+                            str = '#xiu'+i;
+                            $(str).val(demo.cells[i].innerHTML);
+                        }     
+                    }
+
+                    if(classuse == 'upda')
+                        return;
+                    if(classuse == 'tjmj')
+                        return;
+
+                    $.ajax({
+                        url: urluse,
+                        method: 'POST',
+                        dataType: 'json',
+                        data: {
+                            do_what: classuse,
+                            mid: $('#xiu0').val(),
+                            mcode:$('#xiu1').val(),
+                            mname:$('#xiu2').val(),
+                            mintro: $('#xiu3').val(),
+                        },
+                        success: function(resp)
+                        {
+                                // Redirect after successful login page (when progress bar reaches 100%)
+                                if(resp.accessGranted)
+                                {
+                                    hideshow(resp['errors']);
+                                    setTimeout("reloadhtml()",2000);
+                                }
+                                                        // Show errors
+                                                        if(resp.accessGranted == false)
+                                                        {
+                                                            hideshow(resp['errors']);
+                                                        }
+                                                    }
+
+
+                                                });
+                });
+            });
+
+        </script>
+        <p >当前位置：专业大类管理</p>
+        <div class="panel-body">
+
+
+            <div>
+
+                <table class="table table-small-font table-bordered table-striped" cellspacing="0">
+                    <thead>
+                        <tr> 
+                         <th>大类ID</th>
+                         <th>大类代码</th>
+                         <th>大类名称</th>
+                         <th>描述</th>
+                         <th>管理</th>
+                     </tr>
+                 </thead>
+                 <tbody>
+                    <volist name="imajor" id="en">
+
+                        <tr id="{$en['id']}" > 
+                            <td>  {$en['id']}</td>
+                            <td>{$en['mcode']}</td>
+                            <td>{$en['mname']}</td>
+                            <td>   {$en['mintro']}</td>
+                            <td><a style="float:right" href="#" class="btn btn-warning" data-toggle="modal" data-target="#myModal" caozuo="upda" >修改</a> &nbsp <a style="float:right" href="#" class="btn btn-red" caozuo="del" >删除</a></td>
+                        </tr>
+                    </volist>
+
+                    <tr id="majoradd"> 
+
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><a href="#" class="btn btn-success" caozuo="tjmj" data-toggle="modal" data-target="#myModal">添加</a></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+
+    </div>
+</div>
+</div>
+
+<div id="toast-container" style="display: none" class="toast-top-right toast-default" aria-live="polite" role="alert">
+    <div class="black toast-info"><button class="toast-close-button" role="button">×</button>
+        <div class="toast-title">操作状态</div>
+        <div id="toast-show-my" class="toast-message"></div>
+    </div>
+</div>
+<script src="__PUBLIC__/assets/js/bootstrap.min.js"></script>
+
+</body>
+</html>

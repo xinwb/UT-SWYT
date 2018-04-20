@@ -1,0 +1,145 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/400700.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/fonts/linecons/css/linecons.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/fonts/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-core.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-forms.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-components.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-skins.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/custom.css">
+
+    <script src="__PUBLIC__/assets/js/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+    <div class="panel panel-default">
+        <div class="col-md-15">
+            <div class="panel-heading">
+                <!--a id="btnfenfa" class="btn btn-blue btn-lg" href="#">分发签号</a-->
+                <div class="panel-options">
+                    <a href="__SELF__" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+                </div>
+            </div>
+            <script>
+
+               function hideshow(info){
+                   codebasefuns(info);
+                   setTimeout("codefans()",2000);
+
+               }
+               function codebasefuns(info){
+
+                var box=document.getElementById("toast-container");
+                var boxshowmy=document.getElementById("toast-show-my");
+                boxshowmy.innerHTML=info;
+                box.style.display="";
+            }
+            function codefans(){
+                var box=document.getElementById("toast-container");
+                box.style.display="none"; 
+                var url="{:U('majorgl')}";
+                window.location.load(url);
+            }
+
+
+                 jQuery(document).ready(function($){
+
+                    $("form#majorad").submit(function(e){
+                        //alert($("#adminname").val());
+
+                        var mjcode =  $("#mcode").val();
+                        var mjname = $("#mname").val();
+                        if(adminpwd=='' || adminname==''){
+                             hideshow("所有信息不可为空!");
+                             return ;
+
+                        }
+                        var urluse = '{:U('imajoradd')}';
+                        $.ajax({
+                           url: urluse,
+                        method: 'POST',
+                        dataType: 'json',
+                        data: {
+                            do_add: true,
+                            mid:  $("#id").val(),
+                            mname: mjname,
+                            mcode: mjcode,
+                            mintro: $("#mintro").val(),
+                        },
+                        success: function(resp)
+                           {
+                               // Redirect after successful login page (when progress bar reaches 100%)
+                                                if(resp.accessGranted)
+                                                    {
+                                                        hideshow(resp['errors']);
+                      setTimeout("reloadhtml()",2000);
+                                                    }
+                                                        // Show errors
+                                                        if(resp.accessGranted == false)
+                                                            {
+                                                                hideshow(resp['errors']);
+                                                            }
+                           }
+                       });
+                        
+                    });
+                 });
+
+
+        </script>
+        <div class="panel-body">
+            <form id="majorad">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="field-id">大类id</label>
+                    
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="id" placeholder="Placeholder" value="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="mcode">大类代码</label>
+                    
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="mcode" placeholder="Placeholder" value="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="field-名称">名称</label>
+                    
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="mname" placeholder="Placeholder" value="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="mintro">描述</label>
+
+                    <div class="col-sm-10">
+                        <textarea class="form-control" cols="5" id="field-intro" value="" ></textarea>
+                    </div>
+                </div>
+
+            <div align="center"> <input type="submit" class="btn btn-purple" value="提交"></input></div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div id="toast-container" style="display: none" class="toast-top-right toast-default" aria-live="polite" role="alert">
+    <div class="black toast-info"><button class="toast-close-button" role="button">×</button>
+        <div toast-title">操作状态</div>
+        <div id="toast-show-my" class="toast-message"></div>
+    </div>
+</div>
+<script src="__PUBLIC__/assets/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+

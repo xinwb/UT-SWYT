@@ -1,0 +1,1354 @@
+ 	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="Xenon Boostrap Admin Panel" />
+		<meta name="author" content="" />
+		<title>浙江农林大学三位一体报名系统</title>
+		<link rel="stylesheet" href="__PUBLIC__/assets/css/400700.css">
+		<link rel="stylesheet" href="__PUBLIC__/assets/css/fonts/linecons/css/linecons.css">
+		<link rel="stylesheet" href="__PUBLIC__/assets/css/fonts/fontawesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/assets/css/bootstrap.css">
+		<link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-core.css">
+		<link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-forms.css">
+		<link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-components.css">
+		<link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-skins.css">
+		<link rel="stylesheet" href="__PUBLIC__/assets/css/custom.css">
+		<!--<link type="text/css" href="__PUBLIC__/mycss/iF.step.css" rel="stylesheet">-->
+		<link rel="stylesheet" href="__PUBLIC__/mycss/control.css" type="text/css" />
+		<script src="__PUBLIC__/myjs/jquery-1.8.3.min.js"></script>
+		<!--<script src="__PUBLIC__/assets/js/jquery-1.11.1.min.js"></script>-->
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	    <!--[if lt IE 9]>
+	    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+	<load href="__PUBLIC__/Js/Base.js"/>
+	<load href="__PUBLIC__/Js/prototype.js"/>
+	<load href="__PUBLIC__/Js/mootools.js"/>
+	<load href="__PUBLIC__/Js/Ajax/ThinkAjax.js"/>
+	<script type="text/javascript" src="__PUBLIC__/myjs/jquery-html5Validate.js"></script>
+	<script type="text/javascript" >
+
+		function $ebid(id) {
+			return document.getElementById(id);
+		}
+	// function baoming(){
+	//     var id = document.getElementsByName('icmajor');
+	//     var temp = new Array();
+	//     for(var i = 0;i<id.length;i++){
+	//         if(id[i].checked){
+	//             temp.push(id[i].value);
+	//         }
+	//     }
+	//     if(temp.length==0){
+	//         hideshow("请选择意向专业！");
+	//         return;
+	//     }
+	//     var str= temp.join(',');
+	//     //alert(str);
+	//     ThinkAjax.send('{:U('csmajor')}','ajax=1&str='+str,completebm,'');
+	//
+	// }
+
+	function baoming2(){
+
+		var x=document.getElementById("csmjshow");
+
+		var temp = x.innerHTML;
+		var y=document.getElementById("csmjshowid");
+		var str = y.innerHTML;
+		temp = new String(temp);
+	// alert(temp);
+	if(str != "0"){
+		ThinkAjax.send('{:U('csmajor')}','ajax=1&str='+str,completebm,'');
+	    //hideshow(str);
+	}else{
+		hideshow("请选择意向专业！");
+	}
+
+}
+
+
+function completebm(data,status){
+	// alert(data['stats']);
+
+	if(status != 0){
+		var temp = data['stats'];
+		setsetstat(temp);
+	    //var iobj = document.getElementById('baomingqueren');
+	    //iobj.setAttribute("disabled",'true');
+	    var iobj = document.getElementById('baomingqueren2');
+	    iobj.setAttribute("disabled",'true');
+	    jQuery("#baomingqueren2").removeClass("btn-success");
+
+	    jQuery("#baomingqueren2").addClass("btn-primary");
+	    alert('报名成功!');
+	}else{
+		alert(data['info']);
+
+
+	}
+}
+
+
+
+
+
+function csmjbya(name,id){
+
+	var heed = "mjr";
+	var temp = heed+"1";
+
+	document.getElementById("mjr1").classList.remove("btn-red");
+	document.getElementById(temp).classList.add("btn-primary");
+	var temp = heed+"2";
+	document.getElementById(temp).classList.remove("btn-red");
+	document.getElementById(temp).classList.add("btn-primary");
+	var temp = heed+"3";
+	document.getElementById(temp).classList.remove("btn-red");
+	document.getElementById(temp).classList.add("btn-primary");
+	//var temp = heed+"4";
+	//document.getElementById(temp).classList.remove("btn-red");
+	//document.getElementById(temp).classList.add("btn-primary");
+	var temp = heed+id;
+	document.getElementById(temp).classList.remove("btn-primary");
+	document.getElementById(temp).classList.add("btn-red");
+
+
+	var x=document.getElementById("csmjshow");
+	var y=document.getElementById("csmjshowid");
+	x.innerHTML=name;
+	y.innerHTML=id;
+
+}
+
+var chouqianhanve = 3000;
+var time;
+var timess = 0;
+function begincqqh(){
+
+	var iobj = document.getElementById('cqqurrenkaishi');
+	iobj.setAttribute("disabled",'true');
+	chouqianaction();
+}
+
+function chouqianaction(){
+
+	timess++;
+	if(timess > 500){
+		chouqianend();
+		return;
+	}
+	var index = Math.floor(Math.random()*10000 % chouqianhanve);
+	document.getElementById("cqqhxs").innerHTML=index;
+	time = window.setTimeout(chouqianaction,4);
+}
+
+function chouqianend(){
+
+	window.clearTimeout(time);
+	document.getElementById("cqqhxs").innerHTML='{$uinfo['icqqh']}';
+
+	var str = 'haha';
+	ThinkAjax.send('{:U('chouqianuse')}','ajax=1&str='+str,completecq,'');
+}
+function chouqian(){
+	begincqqh();
+
+}
+
+
+
+function completecq(data,status){
+
+	var x=document.getElementById("cqqhxs");
+	if(status != 0){
+		x.innerHTML=data;
+
+		var iobj = document.getElementById('cqqurren');
+		iobj.setAttribute("disabled",'true');
+		xianshireload();
+	}
+}
+
+
+
+	// function hideshow(info){
+	//     codebasefuns(info);
+	//     setTimeout("codefans()",2000);
+	//
+	// }
+	function codebasefuns(info){
+
+		var box=document.getElementById("toast-container");
+		var boxshowmy=document.getElementById("toast-show-my");
+		boxshowmy.innerHTML=info;
+		box.style.display="";
+	}
+	function codefans(){
+		var box=document.getElementById("toast-container");
+		box.style.display="none";
+	}
+
+
+	function changet(name,value)
+	{
+		var strid = name+value;
+		var temp = name+"A";
+		document.getElementById(temp).classList.remove("cbr-checked");
+		temp = name+"B";
+		document.getElementById(temp).classList.remove("cbr-checked");
+		temp = name+"C";
+		document.getElementById(temp).classList.remove("cbr-checked");
+		temp = name+"D";
+		document.getElementById(temp).classList.remove("cbr-checked");
+		temp = name+"E";
+		document.getElementById(temp).classList.remove("cbr-checked");
+		temp = name+"无";
+		document.getElementById(temp).classList.remove("cbr-checked");
+		document.getElementById(strid).classList.add("cbr-checked");
+	}
+
+
+	function savehuikao(){
+		for(var i = 0 ;i < document.huikao.elements.length-5;i++){
+			if(document.huikao.elements[i].value==""){
+				hideshow("请填写完整!");
+				document.huikao.elements[i].focus();
+				return false;
+			}
+		}
+		$temp = $ebid("hkcjxa");
+		$temp.click();
+
+		ThinkAjax.sendForm('huikao','{:U('jbxxhk')}',completehk,'');
+	}
+	function completehk(data,status){
+		var temp= 'A个数:';
+		codebasefuns(temp+data);
+
+		setTimeout("codefans()",2000);
+		var x=document.getElementById("Ahave");
+		if(status != 0){
+			x.innerHTML=data;
+		}
+	}
+
+
+
+	function emsqueren(){
+		$temp = $ebid("emsval");
+		$iems = $temp.value;
+		if($iems == ''){
+			alert("请填写ems单号");
+			return ;
+		}
+		ThinkAjax.send('{:U('wanshanems')}','ajax=1&str='+$iems,completewsems,'');
+	}
+	function completewsems(data,status){
+		hideshow(data);
+
+	}
+
+
+	// function complete(data,status){
+	//     hideshow(data);
+	// }
+	function setsetstat(statsnow){
+		var x = $ebid("istatxxxs");
+		var y = $ebid("statnow");
+
+		var xshow;
+		var yshow = statsnow;
+
+
+		switch(yshow){
+
+			case 0:
+			xshow='完善信息未完成';
+			break;
+			case 1:
+			xshow='报名未完成';
+			break;
+			case 2:
+			xshow='材料审查未通过';
+			break;
+			case 3:
+			xshow='等待专家审查';
+			break;
+			case 4:
+			xshow='专家审查未通过';
+			break;
+			case 5:
+			if($iuser['iwecq'] == ''){
+
+				xshow='请抽签';
+			}else {
+				xshow='可以打印准考证';
+			}
+			break;
+
+		}
+
+		xianshireload();
+		x.innerHTML = xshow;
+		y.innerHTML = yshow;
+
+	}
+	function xianshireload(){
+		var temp = $ebid("xianshi");
+		temp.src='{:U('xianshi')}';
+
+	}
+	function whclick(usea){
+
+		var syscq = {$systeminfo['scqkf']};
+		usea.dataset.toggle="tab";
+		var info;
+		var status = 0;
+		var istat = $ebid("statnow").innerHTML;
+		var useid = usea.id;
+		switch(useid){
+			case 'kebm':
+			if(istat < 1)
+			{
+				info = '请先完善信息';
+
+				status = 1;
+			}
+			break;
+			case 'kesc':
+			if(istat < 3)
+			{
+				info = '请先报名';
+
+				status = 1;
+				if(istat == 2){
+					status = 0;
+					info = '材料审查未通过';
+				}
+			}
+			break;
+			case 'cxcj':
+			if(istat < 7)
+			{
+				info = '尚未查询到您的成绩';
+
+				status = 1;
+				if(istat == 2){
+					status = 0;
+					info = '材料审查未通过';
+				}
+			}
+			break;
+			case 'kejf': 
+			info = '等待审核';
+			if(istat < 6){
+				status = 1;
+				if(istat <= 1){
+					info = '请完成此前步骤';
+				}
+				else if(istat == 2){
+					info = '材料审查未通过';
+				}
+
+				else if(istat == 4){
+					info = '书面评审未通过';
+				}
+				else if(istat == 3){
+					info = '等待审核';
+				}
+			}
+			break;
+			case 'kecq':
+
+			if(istat <= 5 ){
+
+				info= '请等待审核通过后抽签';
+				status = 1;
+			}else if(istat == 6){
+
+				info= '请先缴费';
+				status = 1;
+			}else{
+				if(syscq == 0){
+					info= '等待抽签系统开放';
+					status = 1;
+				}
+
+			}
+			break;
+			default:
+			break;
+		}
+		if(status){
+			usea.dataset.toggle="tab ";
+			hideshow(info);
+		}else{
+                // xianshireload();
+            }
+
+        }
+
+
+
+
+
+	// 兼容性代码
+	function autoHeight(iframe) {
+		if (iframe) {
+			var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+			if (iframeWin.document.body) {
+				iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+				iframe.width = iframeWin.document.documentElement.scrollWidth || iframeWin.document.body.scrollWidth;
+			}
+		}
+	}
+
+	function hiderr(){
+	// alert("fdgsdg");
+	var temp = $ebid('hiderr');
+	temp.innerHTML = '';
+}
+
+function  hideshow(info){
+	jQuery(".errors-container").html('<div class="alert alert-danger">\
+		<button type="button" class="close" data-dismiss="alert">\
+		<span aria-hidden="true">&times;</span>\
+		<span class="sr-only">Close</span>\
+		</button>\
+		' + info + '\
+		</div>');
+	jQuery(".errors-container .alert").hide().slideDown();
+	setTimeout(hiderr,1000);
+}
+
+
+function nomidj(name){
+	jQuery(name).click(); 
+
+}
+
+</script>
+</head>
+
+<div class="modal fade" id="myModaluse" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<!--iframe width="100%" height="100%" id="iframesome" seamless="seamless" frameborder="0" scrolling="no" style="border:0px;" src="{:U('zyupload')}" ></iframe-->
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+				</button>
+
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+<body class="page-body">
+	<div class="page-container">
+		<div class="sidebar-menu toggle-others fixed collapsed">
+			<div class="sidebar-menu-inner">
+				<header class="logo-env">
+					<!-- logo -->
+					<div class="logo">
+						<a href="#" class="logo-expanded">
+							<img src="__PUBLIC__/images/logo.png" width="75px" height="75px">
+						</a>
+						<a href="#" class="logo-collapsed">
+
+							<img src="__PUBLIC__/images/logo.png" width="75px" height="75px" >
+						</a>
+					</div>
+					<!-- This will toggle the mobile menu and will be visible only on mobile devices -->
+					<div class="mobile-menu-toggle visible-xs">
+						<a href="#" data-toggle="mobile-menu">
+							<i class="fa-home" class=""></i>
+						</a>
+					</div>
+				</header>
+				<!--左边菜单栏-->
+				<ul id="main-menu" class="main-menu">
+					<li>
+
+						<a href="#" id="hyxxuse" onclick="nomidj('#hyxx')" >
+							<i class="fa-home" style=""></i>
+							<span class="title">报名首页</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" id="bmjduse"  onclick="nomidj('#kebm')">
+							<i class="linecons-star"></i>
+							<span class="title">三位一体报名</span>
+						</a>
+					</li>
+					<li>
+						<a href="{:U('login/index')}">
+							<i class="fa fa-power-off"></i>
+							<span class="title">退出系统</span>
+						</a>
+					</li>
+				</ul>
+				<!-- 左边菜单栏结束-->
+			</div>
+		</div>
+		<div class="main-content">
+			<!-- User Info, Notifications and Menu Bar -->
+
+
+
+			<div class="page-title">
+
+				<span class="line" style="display:none;" >
+					<strong id="istatxxxs" >{$uinfostatxs}</strong>
+					<p id="statnow" style="display: none">{$uinfo['istat']}</p>
+				</span>
+				<div class="title-env">
+					<h1 class="title">三位一体综合报名系统</h1>
+					<!-- <p class="description">浙江农林大学网上报名流程</p> -->
+				</div>
+
+				<div class="breadcrumb-env">
+
+					<ol class="breadcrumb bc-1">
+
+						<!-- <ul class="user&#45;info&#45;menu right&#45;links list&#45;inline list&#45;unstyled"> -->
+							<li class="dropdown user-profile">
+								<a href="#" data-toggle="dropdown-menu">
+									<img src="__PUBLIC__/usepic/{$uinfo['ipic']}" alt="user-image" class="img-circle img-inline userpic-32" width="30" />
+									<span>
+										{$uinfo['ixm']}
+										<!--i class="fa-angle-down"></i-->
+									</span>
+								</a>
+								<!--右上角-->
+								<ul class="dropdown-menu user-profile-menu list-unstyled">
+									<li class="last">
+										<a href="#">
+											<i class="fa-lock"></i>
+											退出登录
+										</a>
+									</li>
+								</ul>
+								<!--右上角-->
+							</li>
+							<!-- </ul>
+
+
+							<li>
+								<a href="#" onclick="erroruse()" ><i class="fa-home"></i>主页</a>
+							</li>
+							<li>
+
+								<a href="#">报名首页</a>
+							</li>
+							<li class="active">
+
+								<strong>报名进度</strong>
+							</li> -->
+						</ol>
+
+					</div>
+
+
+				</div>
+
+
+				<div class="row" >
+
+					<div class="col-md-12">
+
+						<iframe id="xianshi" src="{:U('xianshi')}" width="100%" seamless="seamless" frameborder="0" scrolling="no" ></iframe>
+
+
+						<div id="hiderr" class="errors-container">
+						</div>
+
+						<!--导航开始-->
+
+
+						<ul class="nav nav-tabs nav-tabs-justified" >
+							<li class="active">
+								<a id="hyxx" href="#欢迎信息-3" data-toggle="tab">
+									<span class="visible-xs"><i class="fa-home" class="active"></i></span>
+									<span class="hidden-xs" style="color:#000;" ><strong>通知公告</strong></span>
+									<!-- <p style="color:red;font&#45;size:6px;"></p> -->
+								</a>
+							</li>
+
+							<li>
+								<a id="tab1" href="#完善个人信息-3" data-toggle="tab">
+									<span class="visible-xs"><i class="fa-envelope-o"></i></span>
+									<span class="hidden-xs"  style="color:#000;"><strong>完善个人信息</strong></span>
+									<!-- <p style="color:red;font&#45;size:6px;"></p> -->
+								</a>
+							</li>
+							<li>
+								<a id="kebm" href="#三位一体报名-3"  onclick="whclick(this)" data-toggle="tab">
+									<span class="visible-xs"><i class="fa-cog"></i></span>
+									<span class="hidden-xs" style="color:#000;"><strong>三位一体报名</strong> </span>
+									<!--p id="kebmp" style="color:red;font-size:6px;">{$tixing}</p-->
+								</a>
+							</li>
+							<li>
+								<a id="kesc" href="#查询信件、初审情况-3" onclick="whclick(this)" data-toggle="tab">
+									<span class="visible-xs"><i class="fa-bell-o"></i></span>
+									<span class="hidden-xs" style="color:#000;"><strong>填写EMS</strong> </span>
+									<!--p id="kescp" style="color:red;font-size:6px;display:none;">{$tixingbm}</p-->
+								</a>
+							</li>
+							<li>
+								<a id="kejf" href="#缴费-3"   onclick="whclick(this)" data-toggle="tab" >
+									<span class="visible-xs"><i class="fa-bell-o"></i></span>
+									<span class="hidden-xs" style="color:#000;"><strong>缴费</strong> </span>
+									<!--p id="kescp" style="color:red;font-size:6px;display:none;">{$tixingbm}</p-->
+								</a>
+							</li>
+
+							<li>
+								<a id="kecq" href="#抽签打印" onclick="whclick(this)" data-toggle="tab" >
+									<span class="visible-xs"><i class="fa-bell-o"></i></span>
+									<span class="hidden-xs" style="color:#000;"><strong>抽签打印</strong></span>
+									<!--p id="kecqp"style="color:red;font-size:6px;"></p-->
+								</a>
+							</li>
+							<li>
+								<a id="cxcj" href="#查询成绩" onclick="whclick(this)" data-toggle="tab">
+									<span class="visible-xs"><i class="fa-bell-o"></i></span>
+									<span class="hidden-xs" style="color:#000;"><strong>查询成绩</strong></span>
+									<!--p id="kecqp"style="color:red;font-size:6px;"></p-->
+								</a>
+							</li>
+
+						</ul>
+						<!--导航结束-->
+						<div class="tab-content">
+
+							<div class="tab-pane active" id="欢迎信息-3">
+								<volist name="notice" id="vo">
+									<div>
+										<blockquote class="blockquote blockquote-red">
+											<p>
+												<strong>{$vo['title']}：</strong>
+											</p>
+											<p>
+												<small>
+													{$vo['content']}
+												</small>
+											</p>
+										</blockquote>
+									</div>
+
+								</volist>
+							</div>
+
+							<div class="tab-pane" id="完善个人信息-3">
+								<!--完善个人信息-->
+								<form action="{:U('bigform')}" id="bigform" name ="bigform" method="POST" >
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h3 class="panel-title">基本信息</h3>
+											<div class="panel-options">
+												<a id="jbxxxa"  href="#" data-toggle="panel">
+													<span class="collapse-icon">–</span>
+													<span class="expand-icon">+</span>
+												</a>
+											</div>
+										</div>
+										<div class="panel-body">
+
+											<div class="form-group has-warning">
+												<label class="col-sm-2 control-label" >姓名</label>
+												<div class="col-sm-10">
+													<input {$kxzt}    name="ixm"  type="text" value="{$uinfo['ixm']}" class="form-control" required="required" />
+												</div>
+											</div>
+
+
+											<div class="form-group has-warning">
+												<label class="col-sm-2 control-label" >上传照片</label>
+												<div class="col-sm-10">
+													<iframe width="100%" height="100%" id="iframe" seamless="seamless" frameborder="0" scrolling="no" style="border:1px;" src="{:U('save')}" ></iframe>
+												</div>
+											</div>
+
+											<!--性别-->
+											<div class="form-group has-warning">
+												<label class="col-sm-2 control-label">性别</label>
+												<div class="col-sm-10">
+
+													<select {$kxzt} name="ixb" required class="form-control">
+
+														<volist name="sex" id="vo">
+															<eq name="vo" value="$uinfo['ixb']">
+																<option value='{$vo}' selected="selected">{$vo}</option>
+																<else/>
+																<option value='{$vo}'>{$vo}</option>
+															</eq>
+														</volist>
+													</select>
+
+
+
+												</div>
+											</div>
+											<!--性别-->
+											<!--出生日期-->
+
+											<div class="form-group has-warning">
+												<label class="col-sm-2 control-label" >出生日期</label>
+												<div class="col-sm-10">
+													<input {$kxzt}    name="icssj" id="icssj" type="datatime" class="form-control" value="{$uinfo['icssj']}" placeholder="1999/06/17" required="required"/>
+												</div>
+											</div>
+											<!--出生日期完-->
+											<!--选择1-->
+
+											<div class="form-group has-warning">
+												<label class="col-sm-2 control-label">民族</label>
+												<div class="col-sm-10">
+													<select {$kxzt} class="form-control" required  name='imz'>
+
+														<option value=""></option>
+														<volist name="tmz" id="vo">
+															<eq name="vo['mzmc']" value="$uinfo['imz']">
+																<option value="{$vo['mzmc']}" selected="selected">{$vo['mzmc']}</option>
+																<else/>
+																<option value="{$vo['mzmc']}" >{$vo['mzmc']}</option>
+															</eq>
+														</volist>
+													</select>
+												</div>
+											</div>
+											<!--选择1-->
+											<!--选择2-->
+
+											<div class="form-group has-warning">
+												<label class="col-sm-2 control-label">考生类别</label>
+												<div class="col-sm-10" >
+													<select {$kxzt} name="ilb" required class="form-control">
+														<option value=""></option>
+														<volist name="kslb" id="vo">
+															<eq name="vo" value="$uinfo['ilb']">
+																<option value='{$vo}' selected="selected">{$vo}</option>
+																<else/>
+																<option value='{$vo}'>{$vo}</option>
+															</eq>
+														</volist>
+													</select>
+												</div>
+											</div>
+											<!--选择2-->
+
+
+
+											<div class="form-group has-warning">
+												<label class="col-sm-2 control-label">选考科目1</label>
+												<div class="col-sm-10">
+													<select {$kxzt} class="form-control" required  name='ibkkm1'>
+														<option value=""></option>
+														<volist name="xkkm" id="vo">
+															<eq name="vo['id']" value="$uinfo['ibkkm1']">
+																<option value='{$vo['id']}' selected="selected">{$vo['kmname']}</option>
+																<else />
+																<option value='{$vo['id']}' >{$vo['kmname']}</option>
+															</eq>
+														</volist>
+													</select>
+												</div>
+
+											</div>
+											<div class="form-group has-warning">
+												<label class="col-sm-2 control-label">选考科目2</label>
+												<div class="col-sm-10">
+													<select {$kxzt} class="form-control" required name='ibkkm2'>
+														<option value=""></option>
+														<volist name="xkkm" id="vo">
+															<eq name="vo['id']" value="$uinfo['ibkkm2']">
+																<option value='{$vo['id']}' selected="selected">{$vo['kmname']}</option>
+																<else />
+																<option value='{$vo['id']}' >{$vo['kmname']}</option>
+															</eq>
+														</volist>
+													</select>
+												</div>
+											</div>
+
+											<div class="form-group has-warning">
+												<label class="col-sm-2 control-label">选考科目3</label>
+												<div class="col-sm-10">
+													<select {$kxzt} class="form-control" required name='ibkkm3'>
+														<option value=""></option>
+														<volist name="xkkm" id="vo">
+															<eq name="vo['id']" value="$uinfo['ibkkm3']">
+																<option value='{$vo['id']}' selected="selected">{$vo['kmname']}</option>
+																<else />
+																<option value='{$vo['id']}' >{$vo['kmname']}</option>
+															</eq>
+														</volist>
+													</select>
+												</div>
+											</div>
+
+											<!--选择2-->
+
+
+
+
+											<div class="form-group has-warning">
+												<label class="col-sm-2 control-label">综合素质评价</label>
+												<div class="col-sm-10">
+
+
+													<select {$kxzt} class="form-control" required name='izhszpj'>
+														<option value=""></option>
+														<volist name="zhszpj" id="vo">
+															<eq name="vo" value="$uinfo['izhszpj']">
+																<option value='{$vo}' selected="selected">{$vo}</option>
+																<else />
+																<option value='{$vo}' >{$vo}</option>
+															</eq>
+														</volist>
+													</select>
+
+
+												</div>
+											</div>
+											<!--选择3-->
+
+											<div class="form-group has-warning">
+												<label class="col-sm-2 control-label">政治面貌</label>
+												<div class="col-sm-10">
+													<select {$kxzt} class="form-control" required name='izzmm'>
+														<option value=""></option>
+														<volist name="zzmm" id="vo">
+															<eq name="vo" value="$uinfo['izzmm']">
+																<option value='{$vo}' selected="selected">{$vo}</option>
+																<else />
+																<option value='{$vo}' >{$vo}</option>
+															</eq>
+														</volist>
+													</select>
+												</div>
+											</div>
+											<!--选择3-->
+
+											<div class="form-group has-error">
+												<label class="col-sm-2 control-label" >高考报名序号</label>
+												<div class="col-sm-10">
+													<input {$kxzt}  name="igkxh" value="{$uinfo['igkxh']}" id="igkxh" type="number" class="form-control"  placeholder="请填写高考报名序号" required="required"/>
+												</div>
+											</div>
+
+											<div class="form-group has-warning">
+												<label class="col-sm-2 control-label" >学籍辅号</label>
+												<div class="col-sm-10">
+													<input {$kxzt}   name="ihkzh" id="ihkzh" value="{$uinfo['ihkzh']}" type="number" class="form-control"  placeholder="请填写学籍辅号" required="required"/>
+												</div>
+											</div>
+
+											<br />
+											<div class="form-group has-success">
+												<label class="col-sm-2 control-label" >家庭电话</label>
+												<div class="col-sm-10">
+													<input {$kxzt}  name="itel" value="{$uinfo['itel']}" type="tel" class="form-control" id="field-8" placeholder="请加上地区区号" required="required"/>
+												</div>
+											</div>
+
+											<div class="form-group has-info">
+												<label class="col-sm-2 control-label" >手机号码</label>
+												<div class="col-sm-10">
+													<input {$kxzt}  name='imobile' id="imobile"  value="{$uinfo['imobile']}" type="number" class="form-control"  placeholder="填写11位手机号" required="required"/>
+												</div>
+											</div>
+
+											<div class="form-group has-info">
+												<label class="col-sm-2 control-label" >邮编</label>
+												<div class="col-sm-10">
+													<input {$kxzt}  name="iybcode" value="{$uinfo['iybcode']}" type="number" class="form-control" id="iybcode" placeholder="" required="required"/>
+												</div>
+											</div>
+
+											<div class="form-group has-info">
+												<label class="col-sm-2 control-label" >电子邮箱</label>
+												<div class="col-sm-10">
+													<input {$kxzt}  name="iemail" value="{$uinfo['iemail']}" type="email" class="form-control" id="iemail" placeholder="请填写正确的邮箱地址" required="required"/>
+												</div>
+											</div>
+
+											<div class="form-group has-info">
+												<label class="col-sm-2 control-label" >通信地址</label>
+												<div class="col-sm-10">
+													<input {$kxzt}  name="iaddr" value="{$uinfo['iaddr']}" type="text" class="form-control" id="field-2" placeholder="请输入详细通讯地址，具体到门牌号" required="required"/>
+												</div>
+											</div>
+
+
+
+											<div class="form-group has-info">
+												<label class="col-sm-2 control-label" >特长和爱好:</label>
+												<div class="col-sm-10">
+													<input {$kxzt}  name="itcah" value="{$uinfo['itcah']}" type="text" class="form-control"  placeholder="" required="required"/>
+												</div>
+											</div>
+											
+										</div>
+									</div>
+									<!--成员关系-->
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h3 class="panel-title">成员关系</h3>
+											<div class="panel-options">
+
+												<a id="cygxxa" href="#" data-toggle="panel">
+													<span class="collapse-icon">–</span>
+													<span class="expand-icon">+</span>
+												</a>
+
+											</div>
+										</div>
+										<div class="panel-body">
+											<div class="scrollable ps-container ps-active-y" >
+												<table class="table table-small-font table-bordered table-striped">
+													<thead>
+														<tr>
+															<th id="id910b2e6d-col-0">成员关系</th>
+															<th data-priority="1" id="id910b2e6d-col-1">姓名</th>
+															<th data-priority="1" id="id910b2e6d-col-3">文化程度</th>
+															<th data-priority="3" id="id910b2e6d-col-4">工作单位</th>
+															<th data-priority="3" id="id910b2e6d-col-5">职务</th>
+															<th data-priority="6" id="id910b2e6d-col-6">联系电话</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<th colspan="1" data-columns="id910b2e6d-col-0"> <span class="co-name">父亲</span></th>
+															<td data-priority="1" colspan="1" data-columns="id910b2e6d-col-1"><input {$kxzt}  name="if1" value="{$uinfo['if1']}" type="text" class="form-control2"  placeholder="" required="required" /></td>
+															<td data-priority="3" colspan="1" data-columns="id910b2e6d-col-2"><input {$kxzt}  name="if2" value="{$uinfo['if2']}" type="text" class="form-control2"  placeholder=""></td>
+															<td data-priority="1" colspan="1" data-columns="id910b2e6d-col-3"><input {$kxzt}  name="if3" value="{$uinfo['if3']}" type="text" class="form-control2"  placeholder=""></td>
+															<td data-priority="3" colspan="1" data-columns="id910b2e6d-col-4"><input {$kxzt}  name="if4" value="{$uinfo['if4']}" type="text" class="form-control2"  placeholder=""></td>
+															<td data-priority="3" colspan="1" data-columns="id910b2e6d-col-5"><input {$kxzt}  name="if5" value="{$uinfo['if5']}" type="text" class="form-control2"  placeholder=""></td>
+														</tr>
+														<tr>
+															<th colspan="1" data-columns="id910b2e6d-col-0"> <span class="co-name">母亲</span></th>
+															<td data-priority="1" colspan="1" data-columns="id910b2e6d-col-1"><input {$kxzt}  name="im1" value="{$uinfo['im1']}" type="text" class="form-control2"  placeholder="" required="required" /></td>
+															<td data-priority="3" colspan="1" data-columns="id910b2e6d-col-2"><input {$kxzt}  name="im2" value="{$uinfo['im2']}" type="text" class="form-control2"  placeholder=""></td>
+															<td data-priority="1" colspan="1" data-columns="id910b2e6d-col-3"><input {$kxzt}  name="im3" value="{$uinfo['im3']}" type="text" class="form-control2"  placeholder=""></td>
+															<td data-priority="3" colspan="1" data-columns="id910b2e6d-col-4"><input {$kxzt}  name="im4" value="{$uinfo['im4']}" type="text" class="form-control2"  placeholder=""></td>
+															<td data-priority="3" colspan="1" data-columns="id910b2e6d-col-5"><input {$kxzt}  name="im5" value="{$uinfo['im5']}" type="text" class="form-control2"  placeholder=""></td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+
+
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h3 class="panel-title">中学信息</h3>
+											<div class="panel-options">
+												<a id="zxxxxa" href="#" data-toggle="panel">
+													<span class="collapse-icon">–</span>
+													<span class="expand-icon">+</span>
+												</a>
+											</div>
+										</div>
+										<div class="panel-body">
+											<div class="form-group">
+												<div class="form-group has-info">
+													<label class="col-sm-2 control-label" >毕业中学</label>
+
+													<div class="col-sm-10">
+														<input {$kxzt}  name="ibyzx" value="{$uinfo['ibyzx']}" type="text" class="form-control"  placeholder="" required="required"/>
+													</div>
+												</div>
+
+
+
+												<div class="form-group has-info">
+													<label class="col-sm-2 control-label" >中学地址</label>
+
+													<div class="col-sm-10">
+														<input {$kxzt}  name="ibyaddr"   value="{$uinfo['ibyaddr']}" type="text" class="form-control"  placeholder="" required="required"/>
+													</div>
+												</div>
+
+
+
+
+												<div class="form-group has-error">
+													<label class="col-sm-2 control-label" >邮编</label>
+
+													<div class="col-sm-10">
+														<input {$kxzt}  name="ibycode" value="{$uinfo['ibycode']}" type="number" class="form-control"  placeholder="" required="required" />
+													</div>
+												</div>
+
+
+												<div class="form-group has-warning">
+													<label class="col-sm-2 control-label" >中学联系人</label>
+
+													<div class="col-sm-10">
+														<input {$kxzt}  name="ibyteac"   value="{$uinfo['ibyteac']}" type="text" class="form-control"  placeholder="" required="required"/>
+													</div>
+												</div>
+
+
+												<div class="form-group has-success">
+													<label class="col-sm-2 control-label" >联系人电话</label>
+
+													<div class="col-sm-10">
+														<input {$kxzt}  name="ibytetel"  value="{$uinfo['ibytetel']}" type="tel" class="form-control"  placeholder="" required="required"/>
+													</div>
+												</div>
+
+
+												<div class="form-group has-info">
+													<label class="col-sm-2 control-label" >中学电话</label>
+
+													<div class="col-sm-10">
+														<input {$kxzt}   name="ibytel" value="{$uinfo['ibytel']}" type="tel" class="form-control"  placeholder="" required="required"/>
+													</div>
+												</div>
+
+											</div>
+										</div>
+									</div>
+									<!--成员关系-->
+
+									<!--会考信息-->
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h3 class="panel-title">会考成绩</h3>
+											<div class="panel-options">
+												<a id="hkcjxa"  href="#" data-toggle="panel">
+													<span class="collapse-icon">–</span>
+													<span class="expand-icon">+</span>
+												</a>
+											</div>
+										</div>
+										<div class="panel-body">
+											<!-- <div class="form&#45;group"> -->
+												<!--     <div class="col&#45;sm&#45;10"> -->
+													<volist name="hkkm" id="hkvo" >
+														<label class="col-sm-1 control-label">{$hkvo['kmname']}</label>
+														<div class="col-sm-5">
+															<div class="form-block">
+																<volist name="alb" id="vo">
+																	<label>
+																		<eq name="vo" value="$uinfo[$hkvo['hkdh']]">
+																			<div class="cbr-replaced cbr-radio cbr-primary cbr-checked" id={$hkvo['hkdh']}{$vo} >
+																				<div class="cbr-input {$kxzt} ">
+																					<input {$kxzt} required="required" type="radio"  name="{$hkvo['hkdh']}"  value="{$vo}" class="cbr cbr-done" checked="checked" onclick="changet(this.name,this.value)">
+																				</div>
+																				<else />
+																				<div class="cbr-replaced cbr-radio cbr-primary" id={$hkvo['hkdh']}{$vo} >
+																					<div class="cbr-input {$kxzt} ">
+																						<input {$kxzt}  required="required" type="radio" name="{$hkvo['hkdh']}"  value="{$vo}" class="cbr cbr-done" onclick="changet(this.name,this.value)">
+																					</div>
+																				</eq>
+																				<div class="cbr-state">
+																					<span></span>
+																				</div>
+																			</div>
+																			{$vo}
+																		</label>
+																		<!-- <br> -->
+																	</volist>
+																	<br>
+																</div>
+															</div>
+														</volist>
+														<!--     </div> -->
+														<!-- </div> -->
+
+													</div>
+												</div>
+
+												<div class="panel panel-default">
+													<div class="panel-heading">
+														<h3 class="panel-title">上传证明资料-可连续上传</h3>
+														<div class="panel-options">
+															<a id="hkcjxa"  href="#" data-toggle="panel">
+																<span class="collapse-icon">–</span>
+																<span class="expand-icon">+</span>
+															</a>
+														</div>
+													</div>
+													<div class="panel-body"><br>
+														<div class="tab-pane with-bg active" id="fwv-1">
+															<div class="row">
+																<div class="col-md-12">
+																	<iframe id="iframeuploadxx" width="100%" height="360px"  " seamless="seamless" frameborder="0"  src="{:U('uploadysb')}"></iframe>
+																</div>
+																<div class="col-md-12">
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+
+												<div class="form-group">
+													<div class="panel panel-default">
+														<div class="panel-heading">
+															<h3 class="panel-title">信息完善确认</h3>
+															<div class="panel-options">
+																<a href="#" data-toggle="panel">
+																	<span class="collapse-icon">–</span>
+																	<span class="expand-icon">+</span>
+																</a>
+
+															</div>
+														</div>
+														<div class="panel-body">
+
+															<div align="center">
+																<input  {$kxzt}  type="submit" class="btn btn-purple btn-lg"  onclick="bigformtijiao()" value = "请确认个人信息完善" />
+															</div>
+														</div>
+													</div>
+												</div>
+											</form>
+										</div>
+										<!--会考信息-->
+
+
+										<!--完善个人信息完-->
+
+
+
+
+										<div class="tab-pane" id="三位一体报名-3"><!--三位一体报名--><!--专业选择-->
+											<h3>大类选择
+												<span id="csmjshow"  style="color:red;font-size:25px;">{$iccc}</span></h3>
+												<br />
+
+												<div class="row">
+													<div class="btn-group btn-group-justified">
+														<volist name="major" id="vo" mod="8">
+															<eq name="mod" value="0">
+
+																<a  id=mjr{$vo['id']} href="#v4-{$vo['mname']}" data-toggle="tab" type="button" class="btn btn-primary  btn-lg"  onclick="csmjbya('{$vo['mname']}','{$vo['id']}')" >{$vo['mname']}</a>
+															</eq>
+															<eq name="mod" value="1">
+																<a id=mjr{$vo['id']}  href="#v4-{$vo['mname']}" data-toggle="tab" type="button" class="btn btn-primary btn-lg"   onclick="csmjbya('{$vo['mname']}','{$vo['id']}')" >{$vo['mname']}</a>
+															</eq>
+															<eq name="mod" value="2">
+																<a id=mjr{$vo['id']} href="#v4-{$vo['mname']}" data-toggle="tab" type="button" class="btn btn-primary btn-lg" onclick="csmjbya('{$vo['mname']}','{$vo['id']}')" >{$vo['mname']}</a>
+															</eq>
+
+															<eq name="mod" value="3">
+																<a id=mjr{$vo['id']} href="#v4-{$vo['mname']}" data-toggle="tab" type="button" class="btn  btn-primary btn-lg" onclick="csmjbya('{$vo['mname']}','{$vo['id']}')" >{$vo['mname']}</a>
+															</eq>
+															<eq name="mod" value="4">
+																<a href="#v4-{$vo['mname']}" data-toggle="tab" type="button" class="btn btn-orange  btn-lg" onclick="csmjbya('{$vo['mname']}','{$vo['id']}')" >{$vo['mname']}</a>
+															</eq>
+															<eq name="mod" value="5">
+																<a href="#v4-{$vo['mname']}" data-toggle="tab" type="button" class="btn btn-turquoise btn-lg" onclick="csmjbya('{$vo['mname']}','{$vo['id']}')" >{$vo['mname']}</a>
+															</eq>
+															<eq name="mod" value="6">
+																<a href="#v4-{$vo['mname']}" data-toggle="tab" type="button" class="btn btn-red btn-lg" onclick="csmjbya('{$vo['mname']}','{$vo['id']}')" >{$vo['mname']}</a>
+															</eq>
+															<eq name="mod" value="7">
+																<a  href="#v4-{$vo['mname']}" data-toggle="tab" type="button" class="btn btn-blue btn-lg" onclick="csmjbya('{$vo['mname']}','{$vo['id']}')" >{$vo['mname']}</a>
+															</eq>
+														</volist>
+
+													</div>
+
+													<div class="col-md-15">
+
+														<div style="text-align:center;"  class="tabs-vertical-env tabs-vertical-bordered">
+
+															<div class="tab-content">
+
+																<volist name="major" id="vo" >
+																	<div class="tab-pane" id="v4-{$vo['mname']}">
+
+																		{$vo['mintro']}
+																	</div>
+																</volist>
+															</div>
+														</div>
+													</div>
+												</div>
+												<!--专业选择完-->
+												<div class="form-group" style="display:none" >
+													<label class="col-sm-2 control-label">意向大类</label>
+
+													<p id="csmjshow"  style="color:red;font-size:25px;"></p>
+													<p id="csmjshowid" style="display: none;" >0</p>
+
+
+													<volist name="major" id="vo">
+														<label>
+															<eq name="vo['id']" value="$uinfo['icmajor']">
+																<div class="cbr-replaced cbr-radio cbr-secondary cbr-checked" id=major{$vo['id']} >
+																	<div class="cbr-input {$kxzt} ">
+																		<input {$kxzt}  type="radio" name="icmajor"  value="{$vo['id']}" class="cbr cbr-done" onclick="changetmj(this.name,this.value)">
+																	</div>
+
+																	<else />
+
+																	<div class="cbr-replaced cbr-radio cbr-secondary" id=major{$vo['id']} >
+																		<div class="cbr-input {$kxzt} ">
+																			<input {$kxzt}  type="radio" name="icmajor"  value="{$vo['id']}" class="cbr cbr-done" onclick="changetmj(this.name,this.value)">
+																		</div>
+
+																	</eq>
+																	<div class="cbr-state">
+																		<span></span>
+																	</div>
+																</div>
+																{$vo['mname']}
+															</label>
+														</volist>
+													</div>
+													<div class="panel panel-default">
+														<div class="panel-heading">
+															<div class="panel-title">
+																三位一体报名
+															</div>
+														</div>
+
+														<div class="btn-group btn-group-justified">
+															<input {$kxzt} id="baomingqueren2" type="button" class="btn {$baomingxx} btn-lg " style="width:30%" onclick="baoming2()" value = "三位一体报名" >
+															<!--input disabled  type="button" class="btn {$baomingxx} btn-lg " style="width:30%"  value = "报名已截止" /-->
+
+															<script>
+																function ptinfoo(){
+
+																	var istat = $ebid("statnow").innerHTML;
+																	if(istat < 3){
+																		alert("请先报名！");
+																		return;
+																	}   window.open('{:U('User/ptinfo')}');
+																}
+
+															</script>
+															<button style="width:30%"  class="btn btn-blue btn-lg" onclick="ptinfoo()" > 打印申请表</button>
+														</div>
+
+														<span id="csmjshow"  style="color:red;font-size:16px;">邮寄申请材料后，请填写EMS单号</span></h3>
+													</div>
+													<!--三位一体报名结束-->
+												</div>
+
+
+												<div class="tab-pane" id="查询信件、初审情况-3">
+													<div class="panel panel-default">
+														<div class="form-group">
+															<label class="control-label">填写EMS号（寄好EMS后单号填入系统，未填未收到的自动视为放弃）</label>
+															<input   id="emsval" type="text" class="form-control" name="name" data-validate="required" data-message-required="This is custom message for required field." placeholder="收件人：浙江农林大学招生办，电话：0571-63730908，地址：杭州市临安区武肃街666号浙江农林大学招生办，邮编311300。" value="{$uinfo['iems']}"required="required" >
+														</div>
+														<div class="form-group">
+															<a type="button" class="btn btn-success btn-lg" onclick="emsqueren()" >确定</a>
+														</div>
+													</div>
+												</div>
+												<div class="tab-pane" id="缴费-3">
+													<div class="panel panel-default">
+														<div class="form-group">
+															<if condition="$uinfo['iisjf'] eq 1">
+																<a type="button" class="btn btn-success btn-lg" href="#" >已成功缴费</a>
+																<else/>
+																<a type="button" class="btn btn-success btn-lg" href="#"  >点击缴费</a> 
+																核查缴费情况中<br/>
+															</if>
+															<br/>
+															<span   style="color:red;font-size:16px;">缴费系统已开通，网上缴费时间截止到3月19日。</span>
+															<br/>
+															<span style="color:red;font-size:16px;">注：建行超级网银支持银联卡免手续费跨行支付，请选中国建设银行并点击下一步，再选择自己的开户银行</span>
+														</div>
+													</div>
+												</div>
+												
+
+												<div class="tab-pane" id="抽签打印">
+
+													<div class="panel panel-default">
+														<span class="super-large text-secondary" >类别号：{$alb[$uinfo['icmajor']]}</span>
+														<div class="panel-body">
+															<div class="form-group">
+
+																<span class="super-large text-secondary" >签&nbsp;&nbsp;&nbsp;&nbsp;号：</span>
+																<eq name="wecq" value="disabled">
+																	<span id="cqqhxs"  class="super-large text-secondary" >{$uinfo['icqqh']}</span>
+																	<else />
+																	<span id="cqqhxs"  class="super-large text-secondary" ></span>
+																</eq>
+															</div>
+														</div>
+														<div class="btn-group btn-group-justified">
+															<div class="panel-body">
+																<div class="form-group">
+
+																	<div class="form-group">
+
+																		<input {$wecq} id="cqqurren" type="button" class="btn btn-success btn-lg" style="display:none"  onclick="chouqianend()" value = "停止" />
+																		<input {$wecq} id="cqqurrenkaishi" type="button" class="btn btn-success btn-lg" style="width:30%"  onclick="chouqian()" value = "抽签" />
+																		<br/>
+
+																		<button class="btn btn-blue btn-lg" style="width: 30%"  onclick="window.open('{:U('User/ptzzk')}')" > 打印准考证</button>
+																		<br/><span   style="color:red;font-size:16px;">网上抽签时间为:3月22日---3月25日</span>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+
+												<div class="tab-pane" id="查询成绩">
+													<div class="panel panel-default">
+														<div class="panel-body">
+															<div class="form-group">
+
+																<span class="super-large text-secondary" >您的成绩：</span>
+																<eq name="wecq" value="disabled">
+																	<span id="cqqhxs"  class="super-large text-secondary" >{$uinfo['iscore']}</span>
+																	<else />
+																	<span id="cqqhxs"  class="super-large text-secondary" ></span>
+																</eq>
+															</div>
+														</div>
+													</div>
+												</div>
+
+											</div>
+										</div>
+										<div id="toast-container" style="display: none" class="toast-top-right toast-default" aria-live="polite" role="alert">
+											<div class="black toast-info"><button class="toast-close-button" role="button">×</button>
+												<div class="toast-title">操作状态</div>
+												<div id="toast-show-my" class="toast-message"></div>
+											</div>
+										</div>
+
+										<script src="__PUBLIC__/assets/js/bootstrap.min.js"></script>
+										<script src="__PUBLIC__/assets/js/TweenMax.min.js"></script>
+										<script src="__PUBLIC__/assets/js/resizeable.js"></script>
+										<script src="__PUBLIC__/assets/js/joinable.js"></script>
+										<script src="__PUBLIC__/assets/js/xenon-api.js"></script>
+										<script src="__PUBLIC__/assets/js/xenon-toggles.js"></script>
+										<!-- JavaScripts initializations and stuff -->
+										<script src="__PUBLIC__/assets/js/dropzone/dropzone.min.js"></script>
+
+										<script src="__PUBLIC__/assets/js/xenon-custom.js"></script>
+										<script>
+											jQuery(document).ready(function(){
+
+												var tabuse = '{$tabuse}';
+												jQuery(tabuse).click();
+
+											});
+
+										</script>
+
+									</body>
+									</html>
+

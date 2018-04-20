@@ -1,0 +1,208 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/400700.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/fonts/linecons/css/linecons.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/fonts/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-core.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-forms.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-components.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-skins.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/custom.css">
+
+    <script src="__PUBLIC__/assets/js/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+<include file="Index/topbaruse" />
+ <div class="panel panel-default">
+   <div class="panel-heading">
+       <!--<h3 class="panel-title">Adjustable Responsive Table</h3>-->
+       <div class="panel-options">
+           <a href="__SELF__" data-toggle="reload">
+               <i class="fa-rotate-right"></i>
+           </a>
+       </div>
+   </div>
+   <script>
+
+       function csl(name){
+           var bydata = name;
+           var url = '{:U('zkzhgl',array('csmajor'=>'bydata'))}';
+           var urlfinal;
+           if(bydata == ''){
+               urlfinal ='{:U('grxxgl')}';
+           }else{
+               var responuse = 'csmajor/'+bydata;
+               urlfinal = url.replace('csmajor/bydata',responuse);
+           }
+           window.open(urlfinal,'_self');
+
+       }
+
+   </script>
+   <div class="panel-body" style="padding-top: 10px;">
+    <p style="margin-bottom: 10px;">当前位置：准考证号核管理</p>
+       <ul class="nav nav-tabs">
+           <li class="active">
+               <a href="#{$vo['id']}" onclick="csl('{$majorcs['id']}')" data-toggle="tab">
+                   <span class="visible-xs"><i class="fa-home"></i></span>
+                   <span id="{$majorcs['id']}"  class="hidden-xs">{$majorcs['mname']}</span>
+               </a>
+           </li>
+           <volist name="imajor" id="vo">
+               <li class="">
+                   <a href="#{$vo['id']}" onclick="csl('{$vo['id']}')" data-toggle="tab">
+                       <span class="visible-xs"><i class="fa-home"></i></span>
+                       <span "cs{$vo['id']}" class="hidden-xs">{$vo['mname']}</span>
+                   </a>
+               </li>
+           </volist>
+
+
+           <li>
+
+               <div align="right"> <a class="btn btn-secondary btn-single" href="{:U('Managers/dczkzh')}" >导出准考证</a>
+               <a class="btn btn-secondary btn-single" href="{:U('Managers/dcwjf')}" >导出未缴费学生信息</a>
+                   <a class="btn btn-secondary btn-single" href="{:U('Managers/dcwjf?se=1')}" >导出已缴费学生信息</a></div>
+           </li>
+       </ul>
+
+
+
+       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+           <ul class="nav navbar-nav">
+               <li class="active">
+                   <a href="#">关键词</a>
+               </li>
+               <li class="dropdown">
+                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                       <b id="searchby">按身份证号查找</b><b class="caret"></b></a>
+                   <ul class="dropdown-menu dropdown-primary">
+
+                       <li><a name="card" onclick="searchby(this)">按身份证号查找</a></li>
+                       <li><a name="xm" onclick="searchby(this)">按姓名查找</a></li>
+                   </ul>
+               </li>
+               <li>
+                   <form class="navbar-form navbar-left" role="search">
+                       <div class="form-group">
+                             <input id="searchuse" type="text" class="form-control" value="" size="30" >
+                       </div>
+                   </form>
+               </li>
+
+               <b id="searchbyuse" style="display:none" >iname</b>
+               <li><a type="button" onclick="searchlink()" class="btn btn-gary">搜索</a></li>
+			  
+
+               <!-- <a class="btn btn&#45;secondary btn&#45;single" href="{:U('Managers/dczkzh')}" >导出准考证</a> -->
+           </ul>
+       </div> 
+
+
+
+       <script type="text/javascript">
+           function searchlink(){
+               var y=document.getElementById('searchbyuse');
+               var x=document.getElementById('searchuse');
+               var bywhat = y.innerHTML;
+               var bydata = x.value;
+               var url = '{:U('zkzhgl',array('bywhat'=>'bydata'))}';
+               var urlfinal;
+               if(bydata == ''){
+
+                   urlfinal ='{:U('zkzhgl')}';
+               }else{
+                   var responuse = bywhat+'/'+bydata;
+                   urlfinal = url.replace('bywhat/bydata',responuse);
+               }
+               window.open(urlfinal,'_self');
+
+           }
+        function searchby(obj){
+            var x=document.getElementById('searchby');
+            var y=document.getElementById('searchbyuse');
+            var bywhat = obj.name;
+            if(bywhat == 'xm'){
+                y.innerHTML='ixm';
+            }else{
+                y.innerHTML='iname';
+            }
+            x.innerHTML = obj.innerHTML;
+        }
+       </script>
+
+
+       <div class="table-responsive" data-pattern="priority-columns" data-add-focus-btn="true" data-add-display-all-btn="true" data-sticky-table-header="true" data-focus-btn-icon="fa-asterisk">
+
+           <table class="table table-small-font table-bordered table-striped" cellspacing="0">
+               <thead>
+                   <tr>
+                       <th data-priority="6">准考证号</th>
+					   <th>报名序号</th>
+                       <th data-priority="6">身份证号</th>
+                       <th data-priority="3">姓名</th>
+                       <th data-priority="6">性别</th>
+                       <th data-priority="1">考生类别</th>
+                       <th data-priority="1">出生年月</th>
+                       <th data-priority="6">会考证号</th>
+                   </tr>
+               </thead>
+               <tbody>
+                   <volist name="iuser" id="vo">
+                       <tr>
+                           <th>{$vo['izkzh']}</th>
+						  <td>{$jor[$vo['icmajor']]}&nbsp;2018{:sprintf("%04d",$vo['iid'])}</td>
+                           <td>{$vo['iname']}</td>
+                           <td>{$vo['ixm']}</td>
+                           <td>{$vo['ixb']}</td>
+                           <td>{$vo['ilb']}</td>
+                           <td>{$vo['icssj']}</td>
+                           <td>{$vo['ihkzh']}</td>
+                       </tr>
+                   </volist>
+               </tbody>
+           </table>
+       </div>
+
+       <div align="right">
+
+           <ul class="pagination pagination-sm">
+               <li>
+                   <form class="navbar-left" role="search">
+                       <input id="searchuse" type="text" class="form-control" placeholder="" value="" >
+                   </form>
+               </li>
+               <li>
+                   <a href="{:U('zkzhgl',array('page'=>'1','csmajor'=>$major))}">
+                       <i class="fa-angle-left"></i>
+                   </a>
+               </li>
+               <for start="1" end="$pagenum+1">
+                   <if condition="$i eq $page">
+                       <li class="active">
+                           <a href="{:U('zkzhgl',array('page'=>$i,'csmajor'=>$major))}" target="_self">{$i}</a>
+                       </li>
+                       <else />
+                           <li >
+                               <a href="{:U('zkzhgl',array('page'=>$i,'csmajor'=>$major))}" target="_self" >{$i}</a>
+                           </li>
+                       </if>
+                   </for>
+                   <li>
+                       <a href="{:U('zkzhgl',array('page'=>$pagenum-1,'csmajor'=>$major))}">
+                           <i class="fa-angle-right"></i>
+                       </a>
+                   </li>
+               </ul>
+           </div>
+       </div>
+   </div>
+   <script src="__PUBLIC__/assets/js/bootstrap.min.js"></script>
+
+</body>
+</html>

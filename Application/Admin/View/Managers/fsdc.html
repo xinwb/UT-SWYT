@@ -1,0 +1,77 @@
+<!DOCTYPE>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+
+
+<table border="1" >
+	<tr>
+		<th>准考证号</th>
+		<th>身份证</th>
+		<th>姓名</th>
+		<th>性别</th>
+        <th>手机号码</th>
+        <th>联系电话</th>
+        <th>大类选择</th>
+		<th>综合素质测试成绩</th>
+		<th>排名</th>
+		<th>是否合格</th>
+		<th>选考科目1</th>
+		<th>选考科目2</th>
+		<th>选考科目3</th>
+        <th>思想政治</th>
+		<th>历史</th>
+		<th>地理</th>
+		<th>物理</th>
+		<th>化学</th>
+		<th>生物</th>
+		<th>技术</th>
+		<th>语文</th>
+		<th>数学</th>
+		<th>英语</th>
+		<th>中学综合素质评价</th>
+		<th>国家级获奖</th>
+		<th>省级获奖</th>
+		<th>市级获奖</th>
+        <th>其他获奖</th>
+		<th>材料ems</th>
+    </tr>
+    <volist name="u" id="vo"> 
+    <tr>
+        <td>{$vo['izkzh']}</td>
+        <td>&nbsp;{$vo['iname']}</td>
+        <td>&nbsp;{$vo['ixm']}</td>
+        <td>{$vo['ixb']}</td>
+        <td>{$vo['imobile']}</td>
+        <td>{$vo['itel']}</td>
+        <td>{$imj[$vo['icmajor']]}</td>
+        <td>{$vo['iscore']}</td>
+        <td>{$vo['iscopm']}</td>
+        <td>{$vo['iscohg']}</td>
+        <td>{$majorn[$vo['ibkkm1']]}</td>
+        <td>{$majorn[$vo['ibkkm2']]}</td>
+        <td>{$majorn[$vo['ibkkm3']]}</td>
+        <td>{$vo['iasz']}</td>
+        <td>{$vo['ials']}</td>
+        <td>{$vo['iadl']}</td>
+        <td>{$vo['iawl']}</td>
+        <td>{$vo['iahx']}</td>
+        <td>{$vo['iasw']}</td>
+        <td>{$vo['iajs']}</td>
+        <td>{$vo['iayw']}</td>
+        <td>{$vo['iasx']}</td>
+        <td>{$vo['iayy']}</td>
+        <td>{$vo['izhszpj']}</td>
+        <td>{$vo['isczm2']}</td>
+        <td>{$vo['isczm3']}</td>
+        <td>{$vo['isczm4']}</td>
+        <td>{$vo['isczm5']}</td>
+        <td>{$vo['iems']}</td>
+    </tr>
+    </volist>
+</table>
+</body>
+</html>
+

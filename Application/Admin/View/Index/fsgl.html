@@ -1,0 +1,178 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+  <link rel="stylesheet" href="__PUBLIC__/assets/css/400700.css">
+  <link rel="stylesheet" href="__PUBLIC__/assets/css/fonts/linecons/css/linecons.css">
+  <link rel="stylesheet" href="__PUBLIC__/assets/css/fonts/fontawesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="__PUBLIC__/assets/css/bootstrap.css">
+  <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-core.css">
+  <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-forms.css">
+  <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-components.css">
+  <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-skins.css">
+  <link rel="stylesheet" href="__PUBLIC__/assets/css/custom.css">
+
+  <script src="__PUBLIC__/assets/js/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+    <include file="Index/topbaruse" />
+    <div class="panel panel-default">
+        <div class="panel-body" style="padding-top: 10px;">
+            <p style="margin-bottom: 10px;">当前位置：分数管理</p>
+            <!--文件-->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    
+                    <h3 class="panel-title">分数导入</h3>///// <a href="__PUBLIC__/EXCEL/score.xls" ><span style=" color:#090"><strong>点此处下载考生分数模板</strong></span></a>
+                </div>
+
+                <div class="panel-body" style="height:30px;">
+                    <form id="formpic" action="{:U('System/upload')}" enctype="multipart/form-data" method="post" >
+                        <input type="file" name="photo" />
+                        <button type="submit" class="btn btn-success"  >上传</button>
+                        <a class="btn btn-white" href="{:U('System/daorufs')}">提交</a>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="panel-heading">
+            <!--<h3 class="panel-title">Adjustable Responsive Table</h3>-->
+            <div class="panel-options">
+                <a href="__SELF__" data-toggle="reload">
+                    <i class="fa-rotate-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="#">关键词</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <b id="searchby">按身份证号查找</b><b class="caret"></b></a>
+                            <ul class="dropdown-menu dropdown-primary">
+                                <li><a name="lb" onclick="searchby(this)">按类别查找</a></li>
+                                <li><a name="card" onclick="searchby(this)">按身份证号查找</a></li>
+                                <li><a name="xm" onclick="searchby(this)">按姓名查找</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <form class="navbar-form navbar-left" role="search">
+                                <div class="form-group">
+                                     <input id="searchuse" type="text" class="form-control" placeholder="如按类别搜索，请输入对应的数字123" value="" size="30" >
+                                </div>
+                            </form>
+                        </li>
+
+                        <b id="searchbyuse" style="display:none" >iname</b>
+                        <li><a type="button" onclick="searchlink()" class="btn btn-gary">搜索</a></li>
+
+                        <li>   <a class="btn" href="{:U('Managers/fsdc')}" >导出学生分数信息</a>        </li>
+                    </ul>
+                </div> 
+                <div class="table-responsive" data-pattern="priority-columns" data-add-focus-btn="true" data-add-display-all-btn="true" data-sticky-table-header="true" data-focus-btn-icon="fa-asterisk">
+                    <table class="table table-small-font table-bordered table-striped" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th data-priority="6">准考证号</th>
+                                <th data-priority="6">身份证号</th>
+                                <th data-priority="3">姓名</th>
+                                <th data-priority="6">性别</th>
+                                <th data-priority="1">面试签号</th>
+                                <th data-priority="1">中学综合素质评价</th>
+                                <th data-priority="1">综合素质测试成绩</th>
+                                <th data-priority="6">排名</th>
+                                <th data-priority="1">是否合格</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <volist name="iuser" id="vo">
+                                <tr id="{$vo['iname']}">
+                                    <th>{$vo['izkzh']}</th>
+                                    <td>{$vo['iname']}</td>
+                                    <td>{$vo['ixm']}</td>
+                                    <td>{$vo['ixb']}</td>
+                                    <td>{$imj[$vo['icmajor']]}&nbsp;{$vo['icqqh']}</td>
+                                    <td>{$vo['izhszpj']}</td>
+                                    <td>{$vo['iscore']}</td>
+                                    <td>{$vo['iscopm']}</td>
+                                    <td>{$vo['iscohg']}</td>
+                                </tr>
+                            </volist>
+                        </tbody>
+                    </table>
+                    <!-- <div align="right"> <button class="btn btn&#45;secondary btn&#45;single">保存</button></div> -->
+                </div>
+                <!-- <div align="right"><input class="cbr" type="checkbox">批量生成</div> -->
+                <div align="right">
+                    <ul class="pagination pagination-sm">
+                        <li>
+                            <form class="navbar-left" role="search">
+                                <input id="searchuse" type="text" class="form-control" placeholder="" value="" >
+                            </form>
+                        </li>
+                        <li>
+                            <a href="{:U('fsgl',array('page'=>$page-1))}">
+                                <i class="fa-angle-left"></i>
+                            </a>
+                        </li>
+                        <for start="1" end="$pagenum+1">
+                            <if condition="$i eq $page">
+                                <li class="active">
+                                    <a href="{:U('fsgl',array('page'=>$i))}" target="_self">{$i}</a>
+                                </li>
+                                <else />
+                                <li >
+                                    <a href="{:U('fsgl',array('page'=>$i))}" target="_self" >{$i}</a>
+                                </li>
+                            </if>
+                        </for>
+                        <li>
+                            <a href="{:U('fsgl',array('page'=>$page+1))}">
+                                <i class="fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <script src="__PUBLIC__/assets/js/bootstrap.min.js"></script>
+        <script >
+            function searchlink(){
+                var y=document.getElementById('searchbyuse');
+                var x=document.getElementById('searchuse');
+                var bywhat = y.innerHTML;
+                var bydata = x.value;
+                var url = '{:U('clshgl',array('bywhat'=>'bydata'))}';
+                var urlfinal;
+                if(bydata == ''){
+
+                    urlfinal ='{:U('clshgl')}';
+                }else{
+                    var responuse = bywhat+'/'+bydata;
+                    urlfinal = url.replace('bywhat/bydata',responuse);
+                }
+                window.open(urlfinal,'_self');
+
+            }
+            function searchby(obj){
+              var x=document.getElementById('searchby');
+              var y=document.getElementById('searchbyuse');
+              var bywhat = obj.name;
+              if(bywhat == 'xm'){
+                  y.innerHTML='ixm';
+              }else{
+                  y.innerHTML='iname';
+              }
+              x.innerHTML = obj.innerHTML;
+          }
+      </script>
+
+  </body>
+  </html>

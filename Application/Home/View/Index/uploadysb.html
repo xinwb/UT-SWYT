@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-core.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-forms.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-components.css">
+    <script src="__PUBLIC__/myjs/jquery-1.8.3.min.js"></script>
+</head>
+<body class="page-body">
+    <div class="panel panel-default" >
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>类别</th>
+                    <th>上传</th>
+                    <th>提交</th>
+                    <!-- <th width="30px">已上传</th> -->
+                    <th>预览</th>
+                </tr>
+            </thead>
+            <script  type="text/javascript">
+
+                function subt(name){
+                    // alert(name);
+                    
+                    var formuse = document.getElementById(name);
+                    formuse.submit();
+
+                }
+
+                 function usubt(name){
+                    // alert(name);
+                    
+                    var formuse2 = document.getElementById(name);
+                    formuse2.submit();
+                    
+                }
+            </script>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>身份证明</td>
+                    <td>
+                        <form id="ke1" action="{:U('sfupload',array('iprank'=>1))}" enctype="multipart/form-data" method="post" >
+                            <input type="file" name="photo" >
+                        </form>
+                    </td>
+                    <td><a {$disuse} href="#" class="btn btn-success" onclick="subt('ke1')">提交</a></td>
+                   <!--  <td>{$u['isczm1']}</td> -->
+                    <td>
+                        <volist name="gfn[1]" id="vo">
+                            <a href="__PUBLIC__/usepiczm/{$vo['iloadsrc']}" target="_blank" ><img src="__PUBLIC__/usepiczm/{$vo['iloadsrc']}" width="80"></a> <a  href="{:U('delimg',array('id'=>$vo['id']))}" class="btn btn-danger" onclick="usubt('{$vo['id']}')">删</a>&nbsp;&nbsp;
+                        </volist>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+
+                    <td>国家级获奖</td>
+                    <td>
+                        <form id="ke2" action="{:U('sfupload',array('iprank'=>2))}" enctype="multipart/form-data" method="post" >
+                            <input type="file" name="photo" >
+                        </form>
+
+                    </td>
+                    <td><a {$disuse} href="#"  class="btn btn-success" onclick="subt('ke2')">提交</a></td>
+                   <!--  <td>{$u['isczm2']}</td> -->
+                    <td>
+                        <volist name="gfn[2]" id="vo">
+                            <!--a href="__PUBLIC__/usepiczm/{$vo['iloadsrc']}"  target="_blank" > {$vo['oldname']}</a-->
+                            <a href="__PUBLIC__/usepiczm/{$vo['iloadsrc']}" target="_blank" ><img src="__PUBLIC__/usepiczm/{$vo['iloadsrc']}" width="80"></a> <a href="{:U('delimg',array('id'=>$vo['id']))}" class="btn btn-danger" onclick="usubt('ke2')">删</a>&nbsp;&nbsp;
+                        </volist>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>省级获奖</td>
+                    <td>
+
+                        <form id="ke3" action="{:U('sfupload',array('iprank'=>3))}" enctype="multipart/form-data" method="post" >
+                            <input type="file" name="photo" >
+                        </form>
+                    </td>
+                    <td><a {$disuse} href="#" class="btn btn-success" onclick="subt('ke3')">提交</a></td>
+                  <!--   <td>{$u['isczm3']}</td> -->
+                    <td>
+                        <volist name="gfn[3]" id="vo">
+                         <a href="__PUBLIC__/usepiczm/{$vo['iloadsrc']}" target="_blank" ><img src="__PUBLIC__/usepiczm/{$vo['iloadsrc']}" width="80"></a> <a  href="{:U('delimg',array('id'=>$vo['id']))}" class="btn btn-danger" onclick="usubt('ke3')">删</a>&nbsp;&nbsp;
+                     </volist>
+                 </td>
+             </tr>
+             <tr>
+                <td>4</td>
+                <td>市级获奖</td>
+                <td>
+                    <form id="ke4" action="{:U('sfupload',array('iprank'=>4))}" enctype="multipart/form-data" method="post" >
+                        <input type="file" name="photo" >
+                    </form>
+                </td>
+                <td><a {$disuse} href="#" class="btn btn-success" onclick="subt('ke4')">提交</a></td>
+                <!-- <td>{$u['isczm4']}</td> -->
+                <td>
+                    <volist name="gfn[4]" id="vo">
+                        <a href="__PUBLIC__/usepiczm/{$vo['iloadsrc']}" target="_blank" ><img src="__PUBLIC__/usepiczm/{$vo['iloadsrc']}" width="80"></a> <a href="{:U('delimg',array('id'=>$vo['id']))}" class="btn btn-danger" onclick="usubt('ke4')">删</a>&nbsp;&nbsp;
+                    </volist>
+                </td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>其他获奖</td>
+                <td>
+                    <form id="ke5" action="{:U('sfupload',array('iprank'=>5))}" enctype="multipart/form-data" method="post" >
+                        <input type="file" name="photo" >
+                    </form>
+                </td>
+                <td><a {$disuse} href="#" class="btn btn-success" onclick="subt('ke5')">提交</a></td>
+               <!--  <td>{$u['isczm5']}</td> -->
+                <td>
+                    <volist name="gfn[5]" id="vo">
+                       <a href="__PUBLIC__/usepiczm/{$vo['iloadsrc']}" target="_blank" ><img src="__PUBLIC__/usepiczm/{$vo['iloadsrc']}" width="80"></a> <a  href="{:U('delimg',array('id'=>$vo['id']))}" class="btn btn-danger" onclick="usubt('ke5')">删</a>&nbsp;&nbsp;
+                   </volist>
+               </td>
+           </tr>
+       </tbody>
+   </table>
+</div>
+</body>
+</html>
+

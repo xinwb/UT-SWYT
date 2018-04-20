@@ -1,0 +1,235 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/400700.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/fonts/linecons/css/linecons.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/fonts/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-core.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-forms.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-components.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/xenon-skins.css">
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/custom.css">
+
+   <script src="__PUBLIC__/assets/js/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+<include file="Index/topbaruse" />
+    <div class="panel panel-default">
+
+        <ul class="nav nav-tabs">
+            <li>
+
+                    <div class="btn-group btn-group-justified">
+               <!-- <a class="btn btn&#45;secondary btn&#45;single" href="{:U('Managers/dcxsxx')}" >导出学生信息</a> -->
+               <!-- <a class="btn btn&#45;secondary btn&#45;single" href="{:U('Managers/dczkzh')}" >导出准考证号</a> -->
+               <!-- <a class="btn btn&#45;secondary btn&#45;single" href="{:U('Managers/dcwjf')}" >导出评审通过未缴费名单</a> -->
+                <!-- <div align="right"> <a class="btn btn&#45;secondary btn&#45;single" href="{:U('Managers/dczkzh')}" >导出准考证号</a></div> -->
+                <!-- <div align="right"> <a class="btn btn&#45;secondary btn&#45;single" href="{:U('Managers/dczkzh')}" >导出准考证号</a></div> -->
+                <!-- <div align="right"> <a class="btn btn&#45;secondary btn&#45;single" href="{:U('Managers/dczkzh')}" >导出准考证号</a></div> -->
+            </li>
+        </ul>
+
+
+        <div class="panel-heading">
+            <!--<h3 class="panel-title">Adjustable Responsive Table</h3>-->
+
+            <div class="panel-options">
+
+                <a href="#" data-toggle="reload">
+                    <i class="fa-rotate-right"></i>
+                </a>
+            </div>
+
+        </div>
+
+        <div class="panel-body" style="padding-top: 10px;">
+            <script type="text/javascript">
+
+
+                function checkAll(obj){
+                    $("#ckbox input[type='checkbox']").prop('checked', $(obj).prop('checked'));
+                }
+
+                 function hideshow(info){
+                     codebasefuns(info);
+                      setTimeout("codefans()",2000);
+
+                 }
+        function codebasefuns(info){
+
+            var box=document.getElementById("toast-container");
+            var boxshowmy=document.getElementById("toast-show-my");
+            boxshowmy.innerHTML=info;
+            box.style.display="";
+        }
+        function codefans(){
+            var box=document.getElementById("toast-container");
+            box.style.display="none"; 
+        }
+                  function reloadhtml(){
+                      window.location.reload();
+                  }
+
+                 jQuery(document).ready(function($){
+
+                     $("form#addform").submit(function(e){
+                         //alert($("#adminname").val());
+
+                         var adminname =  $("#adminname").val();
+                         var adminpwd = $("#adminpwd").val();
+                         if(adminpwd=='' || adminname==''){
+                             hideshow("用户名密码不可为空!");
+                             return ;
+
+                         }
+                         var urluse = '{:U('Managers/add')}';
+                         $.ajax({
+                             url: urluse,
+                        method: 'POST',
+                        dataType: 'json',
+                        data: {
+                            do_add: true,
+                            adminname: $("#adminname").val(),
+                            adminpwd: $("#adminpwd").val(),
+                            adminxm: $("#adminxm").val(),
+                        },
+                        success: function(resp)
+                             {
+                                 // Redirect after successful login page (when progress bar reaches 100%)
+                                                if(resp.accessGranted)
+                                                    {
+                                                        hideshow(resp['errors']);
+                                                        setTimeout("reloadhtml()",2000);
+                                                    }
+                                                        // Show errors
+                                                        if(resp.accessGranted == false)
+                                                            {
+                                                                hideshow(resp['errors']);
+                                                            }
+                             }
+                         });
+
+                     });
+
+                     $("td a.shanchu").click(function(){
+
+                         var usename = this.closest('tr').id;
+                         var urluse = '{:U('Managers/dec')}';
+                         $.ajax({
+                             url: urluse,
+                        method: 'POST',
+                        dataType: 'json',
+                        data: {
+                            do_tuihui: true,
+                            iname: usename,
+                        },
+
+
+                        success: function(resp)
+                             {
+
+                                 // Redirect after successful login page (when progress bar reaches 100%)
+                                                if(resp.accessGranted)
+                                                    {
+                                                        hideshow('操作成功!');
+
+                                                        setTimeout("reloadhtml()",2000);
+                                                    }
+                                                        // Show errors
+                                                        if(resp.accessGranted == false)
+                                                            {
+
+                                                                hideshow('操作失败!');
+                                                            }
+                             }
+
+
+                         });
+                     });
+               });
+            </script>
+            <p style="margin-bottom: 10px;">当前位置：管理员管理</p>
+            <div id="ckbox" class="table-responsive" data-pattern="priority-columns" data-add-focus-btn="true" data-add-display-all-btn="true" data-sticky-table-header="true" data-focus-btn-icon="fa-asterisk">
+
+                <table class="table table-small-font table-bordered table-striped" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th data-priority="1">用户</th>
+                            <th data-priority="3">密码(加密)</th>
+                            <th data-priority="3">姓名</th>
+                            <th data-priority="6">每页显示个数</th>
+                            <th data-priority="6">电话</th>
+                            <th data-priority="3">修改</th>
+                            <th data-priority="6">删除</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <volist name="adminlist" id="vo">
+                            <tr id="{$vo['id']}" >
+                                <td>{$vo['id']}</td>
+                                <td>{$vo['iname']}</td>
+                                <td>******</td>
+                                <td>{$vo['ixm']}</td>
+                                <td>{$vo['ipagesize']}</td>
+                                <td>{$vo['iphone']}</td>
+                                <th><a href="{:U('Managers/edit',array('id'=> $vo['id']))}" class="btn btn-warning" >修改</a></th>
+                                <td><a href="#" class="shanchu"  >删除</a></td>
+                            </tr>
+                        </volist>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">添加用户</h3>
+        </div>
+        <div class="panel-body">
+            <form id="addform" role="form" class="form-horizontal">
+                <div class="form-group-separator"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="field-1">用户名</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="adminname" placeholder="">
+                    </div>
+                </div>
+                <div class="form-group-separator"></div>
+                <div class="form-group has-error">
+                    <label class="col-sm-2 control-label" for="field-6">密码</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="adminpwd" placeholder="">
+                    </div>
+                </div>
+                <div class="form-group-separator"></div>
+                <div class="form-group has-warning">
+                    <label class="col-sm-2 control-label" for="field-7">姓名</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="adminxm" placeholder="">
+                    </div>
+                </div>
+
+                <br>
+                <div align="right"> <input type="submit" class="btn btn-purple" value="添加用户"></input></div>
+            </form>
+        </div>
+    </div>
+
+
+
+    <div id="toast-container" style="display: none" class="toast-top-right toast-default" aria-live="polite" role="alert">
+        <div class="black toast-info"><button class="toast-close-button" role="button">×</button>
+            <div class="toast-title">操作状态</div>
+                    <div id="toast-show-my" class="toast-message"></div>
+                </div>
+            </div>
+            <script src="__PUBLIC__/assets/js/bootstrap.min.js"></script>
+
+        
+</body>
+</html>
